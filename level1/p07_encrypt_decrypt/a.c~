@@ -1,0 +1,11 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define N 1000000
+int key;
+int main(){
+	printf("Please input the key:");
+	scanf("%d",&key);
+	char c;
+	while ((c=getchar())!='\n')printf("%c",c+key);
+	return 0;
+}
