@@ -1,0 +1,20 @@
+#include<stdio.h>
+#define N 1000000
+int n;
+int a[N];
+void swap(int*x,int*y){
+	int z=*x;
+	*x=*y;
+	*y=z;
+}
+int main(){
+	freopen("a.in","r",stdin);
+	freopen("sig","w",stdout);
+	scanf("%d",&n);
+	printf("%d",n);
+	for (int i=0;i<n;i++)scanf("%d",&a[i]);
+	for (int i=0;i<n;i++)
+		for (int j=0;j<i;j++)
+			if (a[i]<a[j])swap(&a[i],&a[j]);
+	return 0;
+}
