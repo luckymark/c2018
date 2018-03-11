@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define N 10000000
+int ans[N][2];
+int n,tot;
+void change(int*x,int y,int z){
+	if (*x==y)*x=z;
+	else
+	if (*x==z)*x=y;
+}
+int main(){
+	freopen("solve.out","w",stdout);
+	printf("Input the number of hanoi:");
+	scanf("%d",&n);
+	ans[0][0]=1,ans[0][1]=3;
+	for (int i=2;i<=n;i++){
+		ans[++tot][0]=1,ans[tot][1]=3;
+		for (int j=0;j<tot;j++){
+			ans[tot+j+1][0]=ans[j][0],ans[tot+j+1][1]=ans[j][1];
+			change(&ans[j][0],2,3);
+			change(&ans[j][1],2,3);
+			change(&ans[j+tot+1][0],1,2);
+			change(&ans[j+tot+1][1],1,2);
+		}
+		tot+=tot;
+	}
+	printf("Steps:%d\n",tot+1);
+	for (int i=0;i<=tot;i++)
+		printf("Move %d to %d\n",ans[i][0],ans[i][1]);
+	return 0;
+}
