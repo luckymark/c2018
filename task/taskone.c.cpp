@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #define MAX 80
+#define SPEED 5 
 
 void print_space(int max);
 
@@ -10,22 +11,26 @@ void print_space(int max);
  {
  	int i;
  	
-	for(i = 0 ; i <= MAX ; i++)
- 	{ 			
- 		print_space(i);
- 		printf("a");
+ 	while(MAX)
+ 	{
+	 
+		for(i = 0 ; i <= MAX ; i++)
+	 	{ 			
+ 			print_space(i);
+ 			printf("a");
  		
- 		Sleep(10);
- 		system("cls");
-	}
+ 			Sleep(SPEED);
+ 			system("cls");
+		}
 	
-	for(i = MAX ; i >= 0 ; i--)
- 	{ 			
- 		print_space(i);
- 		printf("a");
+		for(i = MAX ; i >= 0 ; i--)
+	 	{ 			
+ 			print_space(i);
+ 			printf("a");
  		
- 		Sleep(10);
- 		system("cls");
+ 			Sleep(SPEED);
+ 			system("cls");
+		}
 	}
 	return 0;
 }
