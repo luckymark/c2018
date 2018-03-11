@@ -19,7 +19,7 @@ int main()
 	}
 	
 	m = m - 4;
-	printf("¶ù×ÓËÀÊ±¶ª·¬Í¼%.0fËê", m);
+	printf("He was %.0f years old when his son died.\n", m);
 	
 	return 0;
  } 
