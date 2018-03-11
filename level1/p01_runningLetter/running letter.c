@@ -3,15 +3,15 @@
 #include<windows.h>
 #include<string.h>
 #define WIDTH 60
-#define SPEED 25  //ÊıÖµÔ½Ğ¡Ô½¿ì 
+#define SPEED 25  //æ•°å€¼è¶Šå°è¶Šå¿« 
 int main(){
-	system("mode con cols=60 lines=20");  //¸Ä±ä¿ØÖÆÌ¨´°¿Ú³ß´ç 
-	//ÉÏ·½Óï¾äÈô½«60¸ÄÎªWIDTH»á³ö´í£¬²»ÖªµÀÈçºÎ½â¾ö 
+	system("mode con cols=60 lines=20");  //æ”¹å˜æ§åˆ¶å°çª—å£å°ºå¯¸ 
+	//ä¸Šæ–¹è¯­å¥è‹¥å°†60æ”¹ä¸ºWIDTHä¼šå‡ºé”™ï¼Œä¸çŸ¥é“å¦‚ä½•è§£å†³ 
 	int i,j,n;
 	char A[WIDTH] ;
 	gets(A);
 	n=strlen(A);
-	int blank=WIDTH-n;   //¿Õ°×´¦×Ü³¤blank²»±ä 
+	int blank=WIDTH-n;   //ç©ºç™½å¤„æ€»é•¿blankä¸å˜ 
 	while(1){
 		for(i=0;i<2*blank;i++){
 			if(i<blank){
@@ -29,6 +29,6 @@ int main(){
 			}
 			Sleep(SPEED);
 			system("cls");
-	}
+		}
 	}
 } 
