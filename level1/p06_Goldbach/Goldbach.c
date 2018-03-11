@@ -5,7 +5,7 @@ int primes(int *prime);
 
 void main()
 {
-	int n_prime = 26;     //100ÓĞ25¸öÖÊÊıºÍ1
+	int n_prime = 26;     //100å†…æœ‰25ä¸ªè´¨æ•°å’Œè¯æ˜æ‰€éœ€ç”¨åˆ°çš„1
 	int prime[26];
 	primes(prime);
 	for (int n = 3; n <= 100; n++)
