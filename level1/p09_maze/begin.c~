@@ -73,8 +73,9 @@ int main()
         			map[x][y]='.';
         			map[xx][yy]='P';
         			draw();
-        			printf("You win!And you cost %d steps\n",step);
-        			return 0;
+        			printf("You win.And you cost %d steps.\n",step);
+       			    tcsetattr(tty, TCSANOW, &oldt);
+            		break;
         		}
         	}
         }
