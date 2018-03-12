@@ -51,16 +51,16 @@ void swap(char*x,char*y){
 void upscores(int sig,int step){
 	FILE *file;
 	if (sig==1)
-		file=fopen("score","w");
+		file=fopen("score.out","w");
 	else
-		file=fopen("score","a");
+		file=fopen("score.out","a");
 	fprintf(file,"%d\n",step);
 	fclose(file);
 }
 void drawscoreboard(){	
 	printf("\033c");
 	FILE *file;
-	file=fopen("score","r");
+	file=fopen("score.out","r");
 	int d[100],n=0;
 	memset(d,0,sizeof(d));
 	while (!feof(file)){
@@ -76,14 +76,14 @@ void drawscoreboard(){
 		printf("In level %d,you cost %d steps.\n",i,d[i]);
 }
 void clear(){
-	FILE *file=fopen("score","w");
+	FILE *file=fopen("score.out","w");
 	fclose(file);
 }
 int main(){
 	clear();
 	char filename[100];
 	memset(filename,0,sizeof(filename));
-	FILE *file1=fopen("filename","r");
+	FILE *file1=fopen("filename.in","r");
 	while (!feof(file1)){
 		for (int sig=1;sig<=10;sig++){	
 			memset(filename,0,sizeof(filename));
