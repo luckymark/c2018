@@ -3,45 +3,51 @@
 #include<string.h>
 #define N 100000
 #define MAXN N*4
-#define max(x,y) (x<y?y:x)
-#define MOD2 1073741824
-#define length2 30
-#define MOD2_1 1073741823
-#define MOD10 100000000
-int tot,r,totans,lena,lenb,lenc,lend,len;
-long long a[N/3+1],b[N/3+1],d[N/3+1],c[N/3+1];
-long long ans[N/3+1],pi[N/3+1];
-void pre(long long*a,int x,int*len){
+const int length2=30;
+const long long MOD2=(1<<30);
+const long long MOD10=1e8;
+int tot,r,totans;
+long long a[N/3];
+long long ans[N/3],pi[N/3];
+int pre(int x){
 	x=MAXN-4-x;
-	a[*len=x/length2]=(1<<(x%length2));
+	a[x/length2]=(1<<(x%length2));
 	x/=length2;
+	memset(a,0,sizeof(long long)*x);
+	return x;
 }
-void divide(long long*a,int x,int*len){
-	for (int i=*len;i>=1;i--){
-		a[i-1]+=((a[i]%x)<<length2);
+void divide(int x,int len){
+	for (int i=len;i>=0;i--){
+		if (i)a[i-1]+=a[i]%x*MOD2;
 		a[i]/=x;
 	}
-	a[0]/=x;
-	while (!a[*len]&&*len)*len--;
+	for (int i=0;i<=len;i++)
+		a[i+1]+=a[i]/MOD2,a[i]%=MOD2;
+	while (!a[len]&&len)len--;
 }
-void merge(){
+void merge(int len,int sig){
 	for (int i=0;i<=len;i++){
-		ans[i]+=a[i]-b[i]-c[i]-d[i],a[i]=b[i]=c[i]=d[i]=0;
-		while (ans[i]<0)ans[i+1]--,ans[i]+=MOD2;
-		ans[i+1]+=(ans[i]>>length2);
-		ans[i]&=(MOD2_1);
+		ans[i]+=a[i]*sig;
+		if (ans[i]<0)ans[i+1]--,ans[i]+=MOD2;
+		ans[i+1]+=ans[i]/MOD2;
+		ans[i]%=MOD2;
 	}
 	len++;
-	while (ans[len]>MOD2_1){
-		ans[len+1]+=(ans[len]>>length2);
-		ans[len]&=(MOD2_1);
+	while (ans[len]>1){
+		ans[len+1]+=ans[len]/MOD2;
+		ans[len]%=MOD2;
+		len++;
+	}
+	while (ans[len]<0){
+		ans[len]+=MOD2;
+		ans[len+1]--;
 		len++;
 	}
 	totans=(totans>len?totans:len);
 }
 void twice(){
 	for (int i=0;i<=tot;i++)
-		pi[i]<<=length2;
+		pi[i]*=MOD2;
 	for (int i=0;i<=tot;i++)
 		pi[i+1]+=pi[i]/MOD10,pi[i]%=MOD10;
 	while (pi[tot+1]){
@@ -68,7 +74,7 @@ void turn(){
 		pi[tot]%=MOD10;	
 	}
 	int x=tot;
-	tot=N/3+1;
+	tot=N/3;
 	for (int i=x;i>=0;i--)
 		pi[--tot]=pi[i];
 	for (int i=tot-1;i>=0;i--)pi[i]=0;
@@ -86,16 +92,18 @@ void dividepi(int x){
 int main(){
 	freopen("pi.out","w",stdout);
 	for (int i=0;i<N;i++){
-		pre(a,i*4-2,&lena);
-		divide(a,i*8+1,&lena);
-		pre(b,i*4-1,&lenb);
-		divide(b,i*8+4,&lenb);
-		pre(c,i*4,&lenc);
-		divide(c,i*8+5,&lenc);
-		pre(d,i*4,&lend);
-		divide(d,i*8+6,&lend);
-		len=lena;
-		merge();
+		int len=pre(i*4-2);
+		divide(i*8+1,len);
+		merge(len,1);	
+		len=pre(i*4-1);
+		divide(i*8+4,len);
+		merge(len,-1);
+		len=pre(i*4);
+		divide(i*8+5,len);
+		merge(len,-1);
+		len=pre(i*4);
+		divide(i*8+6,len);
+		merge(len,-1);
 	}
 	turn();
 	for (int i=0;i<=r-2;)

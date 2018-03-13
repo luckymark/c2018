@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#define N 10
+#define N 1
 #define MAXN N*4
 int tot,r;
 long long a[MAXN*2];
