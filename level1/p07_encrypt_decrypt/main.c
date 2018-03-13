@@ -65,7 +65,7 @@ int main() {
             result = Encrypt();
             printf("Encrypted string:\n%s\n\n", result);
         } else if (mode == '2') {
-            puts("\Input your string:");
+            puts("Input your string:");
             fgets(String, LENGTH + 1, stdin);
             result = Decrypt();
             printf("Decrypted string:\n%s\n\n", result);
