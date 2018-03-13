@@ -1,16 +1,14 @@
 #include<stdio.h>
-
+#include<math.h>
 int main() {
 
 	int  a, b, c,value;
 	
-		printf("水仙花的数目为：");
+		printf("所有素数：");
 	
-		for (int i = 100; i < 1000; i++) {
-			a = i % 10;/*个位*/
-			b = i / 10 % 10;/*十位*/
-			c = i / 100;/*百位*/
-			if (c * 100 + b * 10 + a == a*a*a + b*b*b + c*c*c) {
+		for (int i = 2; i < =1000; i++) {
+			a = sqrt(i);
+			if (i%a!= 0) {
 				printf("%d\n", i);
 			}
 			
