@@ -3,11 +3,11 @@
 #include<string.h>
 #define N 10
 #define MAXN N*4
-int tot;
-int a[MAXN];
-int ans[MAXN],pi[MAXN];
+int tot,r;
+long long a[MAXN*2];
+long long ans[MAXN*2],pi[MAXN*8];
 int pre(int x){
-	x=MAXN-3-x;
+	x=MAXN-4-x;
 	memset(a,0,sizeof(a));
 	a[x]=1;
 	return x;
@@ -60,11 +60,11 @@ void divide2(){
 	while (!pi[tot])tot--;
 }
 void turn(){
-	for (int i=MAXN-4;i>=0;i--){
+	for (int i=MAXN*2-1;i>=0;i--){
 		twice();
+		if (!r&&ans[i])r=i;
 		pi[0]+=ans[i];
 	}
-	divide2();
 	for (int i=0;i<=tot;i++)
 		pi[i+1]+=pi[i]/10,pi[i]%=10;
 	while (pi[tot+1]){
@@ -72,8 +72,15 @@ void turn(){
 		pi[tot+1]+=pi[tot]/10;
 		pi[tot]%=10;	
 	}
+	int x=tot;
+	tot=MAXN*2;
+	for (int i=x;i>=0;i--)
+		pi[--tot]=pi[i];
+	for (int i=tot-1;i>=0;i--)pi[i]=0;
+	tot=MAXN*2-1;
 }
 int main(){
+	freopen("pi.out","w",stdout);
 	for (int i=0;i<N;i++){
 		int len=pre(i*4-2);
 		divide(i*8+1,len);
@@ -89,5 +96,15 @@ int main(){
 		merge(len,-1);
 	}
 	turn();
+	for (int i=0;i<=r-2;i++)divide2();
+	printf("%d",pi[tot]);
+	printf(".");
+	int sum=0;
+	for (int i=tot-1;i>=0;i--){
+		++sum;
+		printf("%d",pi[i]);
+		if (sum==10000)break;
+	}
+	printf("\n");
 	return 0;
 }

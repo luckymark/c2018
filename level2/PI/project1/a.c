@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#define N 1000000
+#define N 100000
 #define MAXN N*4
 const int length2=30;
 const long long MOD2=(1<<30);
