@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 #define N 100
-int n,m,x,y,step,sum,bz,xrecord,yrecord;
+int n,m,x,y,step,sum,sumrecord,bz,xrecord,yrecord;
 char map[N][N],map1[N][N];
 int b[4][2]={{-1,0},{1,0},{0,-1},{0,1}};
 void sleep1(int x){
@@ -98,6 +98,7 @@ int main(){
 					else
 					if (map[i][j]=='B')
 						sum++;
+			sumrecord=sum;
 			step=0;
 			bz=0;
 			char ch;
@@ -132,6 +133,7 @@ int main(){
 		    	} else 
 		    	if (ch == 'r'){
 		    		bz=step=0,x=xrecord,y=yrecord;
+		    		sum=sumrecord;
 		    		for (int i=1;i<=n;i++)
 		    			for (int j=1;j<=m;j++)
 		    				map[i][j]=map1[i][j];
