@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+int main()
+{
+    int i,n,k,j;
+    scanf("%d",&n);
+    k=n/2;
+    for(i=2;i<k;i++);
+    j=n%i;
+    if(n==2)
+        printf("2 is prime\n");
+    else if(j==0)
+        printf("%d isn't prime\n",n);
+    else
+        printf("%d is prime\n",n);
+    return 0;
+}
