@@ -7,10 +7,10 @@ int main()
     int prime;
     int i=2;
     int j;
-	printf("请输入一个正整数");
+	printf("璇疯緭鍏ヤ竴涓鏁存暟");
 	scanf("%d",&prime);
 	if(prime==1)
-	printf("%d不是素数\n",prime);
+	printf("%d涓嶆槸绱犳暟\n",prime);
 	else 
 	{
 	for(i=2;i<(int)sqrt(prime);i++)
@@ -18,19 +18,16 @@ int main()
 	j=prime%i;
 	if(j==0)
 	{
-		printf("%d不是素数\n",prime);
+		printf("%d涓嶆槸绱犳暟\n",prime);
 		break;
 	}
 	else
 	{
-		printf("%d是素数\n",prime);
+		printf("%d鏄礌鏁癨n",prime);
 		break;
 	}
 	}
-    
 	}
-
 	system("pause");
 	return 0; 
-	 
 }
