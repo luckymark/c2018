@@ -16,7 +16,7 @@ char String[LENGTH + 1] = {0};
 char *Encrypt() {
     int length = strlen(String) - 1;//去掉\n
     char *encryptedStr = malloc(2 * length + 1);
-    memset(encryptedStr, 2 * length + 1, 0);
+    memset(encryptedStr, 0, 2 * length + 1);
     for (int i = 0; i < length; i++) {
         encryptedStr[2 * i] = table[String[i] >> 4];
         encryptedStr[2 * i + 1] = table[String[i] & 0xf];
@@ -36,7 +36,7 @@ int getIndex(char Char) {
 char *Decrypt() {
     int length = strlen(String) - 1;//去掉\n
     char *decryptedStr = malloc(length / 2 + 1);
-    memset(decryptedStr, length / 2 + 1, 0);
+    memset(decryptedStr, 0, length / 2 + 1);
 
     for (int i = 0; i < length; i += 2) {
         int high = getIndex(String[i]);
