@@ -69,6 +69,7 @@ int main() {
             fgets(String, LENGTH + 1, stdin);
             result = Decrypt();
             printf("Decrypted string:\n%s\n\n", result);
+            continue;
         } else if (mode == '3') {
             break;
         } else {
