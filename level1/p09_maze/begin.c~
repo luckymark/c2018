@@ -8,7 +8,7 @@ char map[N][N];
 int n,m,step,x,y;
 int b[4][2]={{-1,0},{1,0},{0,-1},{0,1}};
 void getmap(){
-	freopen("map","r",stdin);
+	freopen("map.in","r",stdin);
 	while (scanf("%s",map[n])!=EOF)n++;
 	m=strlen(map[n-1]);
 	for (int i=0;i<n;i++)
