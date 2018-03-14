@@ -22,7 +22,7 @@ void delay(void)
 				for (int i = 0; i<40; i++)
 					for (int i = 0; i<50; i++)
 						for (int i = 0; i<14; i++)
-						{}
+						    {}
 }
 void Printf(int i)
 {
