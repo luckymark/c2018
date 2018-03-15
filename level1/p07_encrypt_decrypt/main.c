@@ -42,6 +42,7 @@ char *Decrypt() {
         int high = getIndex(String[i]);
         int low = getIndex(String[i + 1]);
         if (high == -1 || low == -1) {
+            free(decryptedStr);
             decryptedStr = "Invalid string!";
             return decryptedStr;
         }
