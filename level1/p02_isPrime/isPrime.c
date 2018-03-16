@@ -3,7 +3,7 @@
 
 void main()
 {
-	long long int input_n;
+	int input_n;
 	scanf("%lld", &input_n);
 	if (input_n == 1)
 	{
@@ -15,11 +15,10 @@ void main()
 		if (input_n%n == 0)
 		{
 			printf("The number is not a Prime.\n");
-			goto bottom;
+			break；
 		}
+			printf("The number is a Prime.\n");
 	}
-	printf("The number is a Prime.\n");
-bottom:
 	getchar();
 	getchar();
 }
