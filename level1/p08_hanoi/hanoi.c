@@ -1,5 +1,5 @@
 #include<stdio.h>
-#define level_h 64
+#define LEVEL_HANOI 64
 
 void move(int level, char A, char B, char C);
 
@@ -8,7 +8,7 @@ void main()
 	char A = 'A';
 	char B = 'B';
 	char C = 'C';
-	move(level_h, A, B, C);
+	move(LEVEL_HANOI, A, B, C);
 	getchar();
 }
 
