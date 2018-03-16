@@ -12,7 +12,7 @@ void main()
 		{
 			if (i%n == 0)
 				break;
-			else if ((n+1)*(n+1) > i)
+			if ((n+1)*(n+1) > i)
 				printf("%d\n", i);
 		}
 	}
