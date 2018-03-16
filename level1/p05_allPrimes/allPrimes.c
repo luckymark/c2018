@@ -21,7 +21,7 @@ int main(void){
 		}
 	}
 	end=clock();
-	printf("%d\n ",end-start);
+	printf("\nºÄÊ±%dºÁÃë\n ",end-start);
 	return 0;
 	
 }
