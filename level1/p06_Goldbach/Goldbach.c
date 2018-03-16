@@ -1,13 +1,13 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 
-int primes(int *prime);
+int make_primes(int *prime);
 
 void main()
 {
 	int n_prime = 26;     //100内有25个质数和证明所需用到的1
 	int prime[26];
-	primes(prime);
+	make_primes(prime);
 	for (int n = 3; n <= 100; n++)
 	{
 		for (int n1 = 0; n1 < 26; n1++)
@@ -28,7 +28,7 @@ void main()
 	getchar();
 }
 
-int primes(int *prime)
+int make_primes(int *prime)
 {
 	prime[0] = 1;
 	prime[1] = 2;
