@@ -34,15 +34,15 @@ int make_primes(int *prime)
 	prime[1] = 2;
 	prime[2] = 3;
 	int n_p=3;
-	for (int ni = 2; ni <= 100; ni++)
+	for (int i = 2; i <= 100; i++)
 	{
-		for (int i = 2; i*i <= ni; i++)
+		for (int j = 2; j*j <= i; j++)
 		{
-			if (ni%i == 0)
+			if (i%j == 0)
 				break;
-			else if ((i + 1)*(i + 1) > ni && (i + 1)*(i + 1) != ni)
+			else if ((j + 1)*(j + 1) > i && (j + 1)*(j + 1) != i)
 			{
-				prime[n_p] = ni;
+				prime[n_p] = i;
 				n_p++;
 				break;
 			}
