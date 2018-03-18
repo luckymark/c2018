@@ -1,40 +1,38 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <Windows.h>
-#include <conio.h>
+# include <conio.h>
 
 # define WAITTIME 40
 
 void print_space(int cnt);
 int main(void)
 {
-	//»ñÈ¡ÆÁÄ»¿í¶È 
-	HANDLE handle_out;                              //¶¨ÒåÒ»¸ö¾ä±ú  
-    CONSOLE_SCREEN_BUFFER_INFO screen_info;         //¶¨Òå´°¿Ú»º³åÇøĞÅÏ¢½á¹¹Ìå  
-    handle_out = GetStdHandle(STD_OUTPUT_HANDLE);   //»ñµÃ±ê×¼Êä³öÉè±¸¾ä±ú  
-    GetConsoleScreenBufferInfo(handle_out, &screen_info);   //»ñÈ¡´°¿ÚĞÅÏ¢ 
-    const int LENGTH = screen_info.dwSize.X - 1;        //screen_info.dwSize.X(»º³åÇø¿í¶È£¬Ò²¾ÍÊÇºá×ø±ê×î´óÖµ¼Ó1)
-    //¹¦ÄÜÊµÏÖ 
-	int cnt;
-	int a, b, c;
-	for(cnt = 0;; cnt++)
+	//è·å–å±å¹•å®½åº¦ 
+	HANDLE handle_out;                              //å®šä¹‰ä¸€ä¸ªå¥æŸ„  
+	CONSOLE_SCREEN_BUFFER_INFO screen_info;         //å®šä¹‰çª—å£ç¼“å†²åŒºä¿¡æ¯ç»“æ„ä½“  
+	handle_out = GetStdHandle(STD_OUTPUT_HANDLE);   //è·å¾—æ ‡å‡†è¾“å‡ºè®¾å¤‡å¥æŸ„  
+    GetConsoleScreenBufferInfo(handle_out, &screen_info);   //è·å–çª—å£ä¿¡æ¯ 
+    const int LENGTH = screen_info.dwSize.X - 1;        //screen_info.dwSize.X(ç¼“å†²åŒºå®½åº¦ï¼Œä¹Ÿå°±æ˜¯æ¨ªåæ ‡æœ€å¤§å€¼åŠ 1)
+    //åŠŸèƒ½å®ç° 
+	int remainder, flag, steps;
+	for(int cnt = 0;; cnt++)
 	{
-		//Ö÷ÌåÂß¼­²¿·Ö, ÊµÏÖÑ­»· 
-		a = cnt % LENGTH;
-		b = (cnt / LENGTH) % 2;
-		c = abs(LENGTH * b - a);
-		print_space(c);
+		//ä¸»ä½“é€»è¾‘éƒ¨åˆ†, å®ç°å¾ªç¯  remainderå’Œflagå…±åŒæ§åˆ¶æ–¹å‘ 
+		remainder = cnt % LENGTH;
+		flag = (cnt / LENGTH) % 2;
+		steps = abs(LENGTH * flag - remainder);
+		print_space(steps);
 		
 		printf("R");
 		Sleep(WAITTIME);
 		system("cls");
 	}
-	CloseHandle(handle_out);    //¹Ø±Õ±ê×¼Êä³öÉè±¸¾ä±ú
+	CloseHandle(handle_out);    //å…³é—­æ ‡å‡†è¾“å‡ºè®¾å¤‡å¥æŸ„
 }
-void print_space(int cnt)
+void print_space(int steps)
 {
-	int temp;
-	for(temp = 0; temp < cnt; temp++)
+	for(int i = 0; i < steps; i++)
 	{
 		printf(" ");
 	}
