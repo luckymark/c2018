@@ -1,0 +1,5 @@
+﻿  源.c
+c:\users\hp\source\repos\c2018\level1\p05_allprimes\1000prime\1000prime\源.c(8): warning C4244: “=”: 从“time_t”转换到“clock_t”，可能丢失数据
+c:\users\hp\source\repos\c2018\level1\p05_allprimes\1000prime\1000prime\源.c(24): warning C4244: “=”: 从“time_t”转换到“clock_t”，可能丢失数据
+c:\users\hp\source\repos\c2018\level1\p05_allprimes\1000prime\1000prime\源.c(9): warning C4101: “k”: 未引用的局部变量
+  1000prime.vcxproj -> C:\Users\HP\source\repos\c2018\level1\p05_allPrimes\1000prime\Debug\1000prime.exe
