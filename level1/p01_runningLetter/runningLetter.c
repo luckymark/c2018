@@ -22,6 +22,5 @@ int main(void)
     run(p0);
     run(p1);
   }
-  getchar();
   return 0;
 }
