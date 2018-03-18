@@ -1,33 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h> 
+#include <math.h>
 
 int main()
 {   
     int prime;
-    int i=2;
+    int i;
     int j;
 	printf("请输入一个正整数");
 	scanf("%d",&prime);
 	if(prime==1)
-	printf("%d不是素数\n",prime);
+	{	
+		printf("%d不是素数\n",prime);
+	}
 	else 
 	{
-	for(i=2;i<(int)sqrt(prime);i++)
+	for(i=2;i<=prime-1;i++)
 	{
-	j=prime%i;
-	if(j==0)
+	if(	prime%i==0)
 	{
 		printf("%d不是素数\n",prime);
-		break;
+		return 0; 
 	}
-	else
-	{
-		printf("%d是素数\n",prime);
-		break;
-	}
-	}
+    }
+        printf("%d是素数\n",prime); 	
 	}
 	system("pause");
-	return 0; 
+	return 0;
 }
+    
