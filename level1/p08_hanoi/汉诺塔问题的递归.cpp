@@ -5,12 +5,12 @@ void function(int panzishu,char a,char b,char c)
 {
 	if(panzishu==1)
 	{
-	printf("½«%c===>%c",a,c);
+	printf("å°†%c===>%c\n",a,c);
 	}
 	else
 	{
 	function(panzishu-1,a,c,b);
-	printf("½«%c===>%c",a,c);
+	printf("å°†%c===>%c\n",a,c);
 	function(panzishu-1,b,a,c);
 	}
 }
@@ -21,7 +21,7 @@ int main()
 	a='a';
 	b='b';
 	c='c';
-	printf("ÇëÊäÈëººÅµËşµÄÅÌ×ÓÊıÁ¿:");
+	printf("è¯·è¾“å…¥æ±‰è¯ºå¡”çš„ç›˜å­æ•°é‡:");
 	scanf("%d",&panzishu);
 	function(panzishu,a,b,c);
 	return 0;
