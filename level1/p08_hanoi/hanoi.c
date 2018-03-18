@@ -25,7 +25,7 @@ int main()
 {
 	i = 1;
 	char post[3] = {'A', 'B', 'C'};
-	hanoi(8, post[0], post[1], post[2]);
+	hanoi(64, post[0], post[1], post[2]);
 	
 	return 0;
 }
