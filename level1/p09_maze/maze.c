@@ -4,57 +4,59 @@
 #include <stdlib.h>
 #include <conio.h>
 
-void createmaze(int maze[][20]);
+void create_maze(int maze[][20]);
 void draw(int maze[][20]);
+enum symbol{ empty, wall, player, terminal };
 
 void main()
 {
 	system("mode con cols=50 lines=22");
-replay:
-	int dir = 0;
+	int dir;
 	int maze[20][20];
 	int posi[2] = {1,1};
-	createmaze(maze);
-	maze[1][1] = 2;                         //2表示玩家
+replay:
+	dir = 0;
+	create_maze(maze);
+	maze[1][1] = player;
 	draw(maze);
-	while(maze[18][18] != 2)
+	while(maze[18][18] != player)
 	{
 		dir = _getch();
 		switch (dir)
 		{
 		case 72:                               //up
-			if (maze[posi[0] - 1][posi[1]] == 0 || maze[posi[0] - 1][posi[1]] == 3)
+			if (maze[posi[0] - 1][posi[1]] == empty || maze[posi[0] - 1][posi[1]] == terminal)
 			{
-				maze[posi[0]][posi[1]] = 0;
+				maze[posi[0]][posi[1]] = empty;
 				posi[0] = posi[0] - 1;
-				maze[posi[0]][posi[1]] = 2;
+				maze[posi[0]][posi[1]] = player;
 				draw(maze);
 			}
 			break;
 		case 80:                               //down
-			if (maze[posi[0] + 1][posi[1]] == 0 || maze[posi[0] + 1][posi[1]] == 3)
+			if (maze[posi[0] + 1][posi[1]] == empty || maze[posi[0] + 1][posi[1]] == terminal)
 			{
-				maze[posi[0]][posi[1]] = 0;
+				maze[posi[0]][posi[1]] = empty;
 				posi[0] = posi[0] + 1;
-				maze[posi[0]][posi[1]] = 2;
+				maze[posi[0]][posi[1]] = player;
 				draw(maze);
 			}
 			break;
 		case 75:                               //left
-			if (maze[posi[0]][posi[1] - 1] == 0 || maze[posi[0]][posi[1] - 1] == 3)
+			if (maze[posi[0]][posi[1] - 1] == empty || maze[posi[0]][posi[1] - 1] == terminal)
 			{
-				maze[posi[0]][posi[1]] = 0;
+				maze[posi[0]][posi[1]] = empty;
 				posi[1] = posi[1] - 1;
-				maze[posi[0]][posi[1]] = 2;
+				maze[posi[0]][posi[1]] = player;
 				draw(maze);
 			}
 			break;
 		case 77:                               //right
-			if (maze[posi[0]][posi[1] + 1] == 0 || maze[posi[0]][posi[1] + 1] == 0)
+			if (maze[posi[0]][posi[1] + 1] == empty || maze[posi[0]][posi[1] + 1] == terminal)
 			{
-				maze[posi[0]][posi[1]] = 0;
+				maze[posi[0]][posi[1]] = empty;
 				posi[1] = posi[1] + 1;
-				maze[posi[0]][posi[1]] = 2;
+				maze[posi[0]][posi[1]] = player;
 				draw(maze);
 			}
 			break;
@@ -69,7 +71,7 @@ replay:
 	
 }
 
-void createmaze(int maze[][20])
+void create_maze(int maze[][20])
 {
 	for (int n1 = 1; n1 < 19; n1++)
 	{
@@ -77,22 +79,22 @@ void createmaze(int maze[][20])
 		{
 			if (rand() % 4 + 1 > 1)
 			{
-				maze[n1][n2] = 0;           //0表示空
+				maze[n1][n2] = empty;
 			}
 			else
 			{
-				maze[n1][n2] = 1;           //1表示墙
+				maze[n1][n2] = wall;
 			}
 		}
 	}
 	for (int n = 0; n < 20; n++)
 	{
-		maze[0][n] = 1;
-		maze[19][n] = 1;
-		maze[n][0] = 1;
-		maze[n][19] = 1;                    //生成边界墙
+		maze[0][n] = wall;
+		maze[19][n] = wall;
+		maze[n][0] = wall;
+		maze[n][19] = wall;
 	}
-	maze[18][18] = 3;                       //终点   
+	maze[18][18] = terminal;
 }
 
 void draw(int maze[][20])
@@ -104,16 +106,16 @@ void draw(int maze[][20])
 		{
 			switch (maze[i][j])
 			{
-			case 0:
+			case empty:
 				printf("  ");
 				break;
-			case 1:
+			case wall:
 				printf("墙");
 				break;
-			case 2:
+			case player:
 				printf("你");
 				break;
-			case 3:
+			case terminal:
 				printf("终");
 				break;
 			}
