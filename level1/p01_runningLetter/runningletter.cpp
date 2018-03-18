@@ -17,19 +17,11 @@ void print_space(int max);
 		for(i = 0 ; i <= MAX ; i++)
 	 	{ 			
  			print_space(i);
- 			printf("a");
- 		
- 			Sleep(SPEED);
- 			system("cls");
 		}
 	
 		for(i = MAX ; i >= 0 ; i--)
 	 	{ 			
  			print_space(i);
- 			printf("a");
- 		
- 			Sleep(SPEED);
- 			system("cls");
 		}
 	}
 	return 0;
@@ -39,5 +31,11 @@ void print_space(int max);
  {
  	int num = 0;
  	for(num = 0; num <= max; num++)
- 			printf(" ");
+ 	{
+ 		printf(" ");
+	}
+	printf("a");
+	Sleep(SPEED);
+ 	system("cls");
+	
  }
