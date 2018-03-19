@@ -26,7 +26,7 @@ void run()
 
 int main()
 {
-    system("mode con cols=81 lines=50");
+	system("mode con cols=81 lines=50");
 	run();
 	return 0;
 }
