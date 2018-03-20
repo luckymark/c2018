@@ -1,0 +1,144 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<time.h>
+const int N=100,T=10,Allsum=10,MAXN=1000;
+const double rate=0.1;
+const int b[4][2]={{-1,0},{1,0},{0,-1},{0,1}};
+const char c[4]={'u','d','l','r'};
+char map[N][N];
+int n,m,sum,t;
+struct point{
+	int x,y;
+	point(int X=0,int Y=0){x=X,y=Y;}
+	bool operator==(point s){
+		return s.x==x&&s.y==y;
+	]
+	inline int dis(point s){
+		return abs(s.x-x)+abs(s.y-y);
+	}
+	void walk(int sig){
+		x+=b[sig][0],y+=b[sig][1];
+	}
+	inline bool legal(){
+		return x&&x<=n&&y&&y<=m&&map[x][y]!='#';
+	}
+}start,end;
+struct V{
+	int Mandis,steps;
+	V(int Mandis1=0,int steps1=0){
+		Mandis=Mandis1,steps=steps1;
+	}
+	bool operator<(V s){
+		return Mandis<s.Mandis||(Mandis==s.Mandis&&steps<s.steps);
+	}
+};
+struct gene{
+	int step[N*N/30+1];
+	V v;
+	gene(int*step1){
+		step=step1;
+	}
+	void init(){
+		for (int i=0;i<sum;i++)
+			step[i*2/30]+=(1<<(i*2%30))*(rand()&1),step[(i*2+1)/30]+=(1<<((i*2+1)%30))*(rand()&1);
+	}
+	void calc(){
+		point s=start;
+		int i=0,steps=0;
+		while (i<sum&&!(s==end)){
+			int sig=step[i*2/30]/(1<<(i*2%30))%4;
+			point next=s.walk(sig);
+			if (next.legal())s=next,steps++;
+		}
+		v.Mandis=end.dis(s),v.steps=steps;
+	}
+	void clear(){
+		for (int i=0;i<sum*2/30;i++)
+			sum[i]=0;
+	}
+	inline double getrate(){
+		return (double)rand()%MAXN/MAXN;	
+	}
+	void mutation(){
+		for (int i=0;i<sum;i++)
+			if (getrate()<=rate){
+				step[i*2/30]-=(step[i*2/30]&((1<<(i*2%30))+(1<<((i*2+1)%30))));
+				step[i*2/30]+=(1<<(i*2%30))*(rand()&1)+(1<<((i*2+1)%30))*(rand()&1);
+			}
+	}
+	void output(){
+		printf("%d\n",v.steps);
+		point s=start;
+		int i=0,steps=0;
+		while (i<sum&&!(s==end)){
+			int sig=step[i*2/30]/(1<<(i*2%30))%4;
+			point next=s.walk(sig);
+			if (next.legal())s=next,printf("%c",c[sig]);
+		}
+	}
+}group[Allsum*Allsum+1],ans,help[Allsum+1];
+void init(){
+	srand((unsigned)time(NULL));
+	n=0,m=0;
+	while (scanf("%s",map[++n]+1)!=EOF);
+	while (map[n][1]!='.'&&map[n][1]!='#'&&map[n][1]!='E'&&map[n][1]!='P')n--;
+	m=strlen(map[n]+1);
+	sum=n*m;	
+	for (int i=1;i<=Allsum*Allsum;i++)
+		group[i].init();
+	for (int i=1;i<=n;i++)
+		for (int j=1;j<=m;j++)
+			if (map[i][j]=='E')end=point(i,j);
+			else
+				if (map[i][j]=='S')start=point(i,j);
+	t=0;
+}
+inline f(int x){
+	return Allsum-x+1;
+}
+void calc(){
+	for (int i=1;i<=Allsum;i++)
+		group[i].calc();
+	sort(group+1,group+1+Allsum*Allsum);
+	if (ans.v<group.v)ans=group;
+	for (int i=1;i<=Allsum;i++){
+		int x=rand()%(Allsum*Allsum)+1;
+		for (int j=1;j<=Allsum;j++)
+			if ((x-=f(j))<=0){
+				help[i]=group[j];
+				break;	
+			}
+	}
+	for (int i=1;i<=Allsum;i++)
+		group[i]=help[i];
+}
+void jiao(gene *a,gene *b,gene *c){
+	c.clear();
+	for (int i=0;i<sum;i++)
+		if (rand()&1)
+			c[i*2/30]+=a[i*2/30]/(1<<(i*2%30))%4*(1<<(i*2%30));
+		else
+			c[i*2/30]+=b[i*2/30]/(1<<(i*2%30))%4*(1<<(i*2%30));
+}
+void reproduct(){
+	int tot=Allsum;
+	for (int i=1;i<=Allsum;i++)
+		for (int j=1;j<=Allsum;j++)
+			if (i!=j)
+				jiao(&group[i],&group[j],&group[++tot]);
+}
+void mutation(){
+	for (int i=1;i<=Allsum*Allsum;i++)
+		group[i].mutation();
+}
+int main(){
+	init();
+	while (++t<=T){
+		calc();
+		reproduct();	
+		mutation();
+	}
+	ans.output();
+	return 0;
+}

@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<time.h>
-#define N 1000000
+#define N 10000
 #define omp_threads 16
 #define MAXN N*4
 #define max(x,y) (x<y?y:x)

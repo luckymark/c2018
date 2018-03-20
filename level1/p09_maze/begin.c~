@@ -72,6 +72,7 @@ int main()
         		if (map[xx][yy]=='E'){
         			map[x][y]='.';
         			map[xx][yy]='P';
+        			step++;
         			draw();
         			printf("You win.And you cost %d steps.\n",step);
        			    tcsetattr(tty, TCSANOW, &oldt);
