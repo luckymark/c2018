@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1521449203 source:e:\c_sources\c2018homework\level1\p01_runningletter\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
