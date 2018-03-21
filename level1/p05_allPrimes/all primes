@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<time.h>
+int prime(int num)
+{
+    int n;
+    for(n=2;n<=num/2;n++)
+    {
+        if(num%n==0)
+            return 0;
+    }
+    return 1;
+}
+int main()
+{
+    clock_t start,end;
+    start=clock();
+    for(int i=2;i<=1000;i++)
+        if(prime(i))
+        {
+            printf("%d \n", i);
+        }
+    end=clock();
+    printf("程序运行时间为：%lu ms\n",end-start);
+    return 0;
+}
