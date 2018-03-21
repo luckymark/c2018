@@ -32,3 +32,8 @@
 /level1/p02_isPrime/isprime/isprime/isprime.vcxproj.filters
 /level1/p02_isPrime/isprime/isprime/isprime.vcxproj.user
 /level1/p02_isPrime/isprime/isprime.sln
+/level1/p08_hanoi/hanoi/.vs/hanoi/v15
+/level1/p08_hanoi/hanoi/hanoi/hanoi.vcxproj
+*.filters
+/level1/p08_hanoi/hanoi/hanoi/hanoi.vcxproj.user
+/level1/p08_hanoi/hanoi/hanoi.sln
