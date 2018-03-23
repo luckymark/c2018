@@ -192,14 +192,19 @@ int GetPlayerCommand(void){
 	return c;
 }
 
-void Judge(int twd,struct COD* now,struct COD* New){                      //判断人的移动 
+void Judge(int twd,struct COD* now,struct COD* New){                      //判断人的移动  
 	char temp;
-	if(MAP[New->x][New->y] == ' ' || MAP[New->x][New->y] == 'X' ){
+	if(MAP[New->x][New->y] == ' ' ){
 		temp=MAP[now->x][now->y];
 		MAP[now->x][now->y]=MAP[New->x][New->y];
 		MAP[New->x][New->y]=temp;
 		*now = *New;
 	}
+	if(MAP[New->x][New->y] == 'X'){
+		MAP[New->x][New->y]='o';
+		MAP[now->x][now->y]=' ';
+		*now = *New;	
+	} 
 	if(cnt){
 		if(MAP[New->x][New->y] == 'B'){
 			struct COD *Bnow=New;
