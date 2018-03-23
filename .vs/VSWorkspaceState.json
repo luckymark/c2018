@@ -2,8 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\level1",
-    "\\level1\\p01_runningLetter"
+    "\\level1\\p03_Diophantus\\Diophantus",
+    "\\level1\\p03_Diophantus\\Diophantus\\Diophantus",
+    "\\level1\\p04_ narcissus\\narcissus",
+    "\\level1\\p04_ narcissus\\narcissus\\narcissus",
+    "\\level1\\p05_allPrimes"
   ],
-  "SelectedNode": "\\level1\\p01_runningLetter",
+  "SelectedNode": "\\level1\\p05_allPrimes",
   "PreviewInSolutionExplorer": false
 }
