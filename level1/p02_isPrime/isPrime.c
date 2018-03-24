@@ -21,7 +21,7 @@ int main(void)
       --i;
       mod=(num%i);
     }while(mod!=0);
-    if(i>=2)
+    if(i==1)
       printf("yes");
     else
       printf("no");
