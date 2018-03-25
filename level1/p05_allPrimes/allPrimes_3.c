@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #define N 1000
-int divisor[]={2,3,5,7,9} ;
+int divisor[]={2,3,5,7,11} ;
 int fast(int num)
 {
     int i,mod;
