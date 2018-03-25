@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <time.h>
-#define N 1000
+#define N 10000
 int divisor[]={2,3,5,7,11} ;
 int fast(int num)
 {
@@ -16,15 +16,14 @@ int fast(int num)
 }
 int exhaust(int num) 
 {
-    int i=2,mod;
-    do
+    int i,mod;
+    for(i=13;i*i<=N;i++)
     {
-        mod=(num%i);
-        i++;
-    }while(mod!=0);
-    if(i<=num)
-    return 1;
-    else
+        mod=num%i;
+        if(mod==0)
+        return 1;
+        else;
+    }
     return 0;
 }
 int main(void)
