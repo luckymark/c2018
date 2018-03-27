@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+    int age=0;
+    while (1)
+    {
+        age++;
+        if (age%12)continue;
+        if (age%7)continue;
+        int childhood=age/6,teenager=age/12,bachelor=age/7;
+            if (age<childhood+teenager+bachelor+5+4)continue;
+            printf("He is %d years old.\n",age-4);
+            break;
+    }
+    return 0;
+}
