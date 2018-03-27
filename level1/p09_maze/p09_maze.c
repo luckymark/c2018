@@ -34,16 +34,17 @@ int main()
         s=4;
         switch (c)
         {
-            case RESET:
+            case RESET:  //重置
                 {
                     system("cls");
                     init();
                     continue;
                 }
-            case UP:s=3;break;
-            case DOWN:s=2;break;
-            case LEFT:s=1;break;
-            case RIGHT:s=0;break;
+            case UP:s=3;break;  //上
+            case DOWN:s=2;break;  //下
+            case LEFT:s=1;break;  //左
+            case RIGHT:s=0;break;  //右
+            default:continue; //遇到其他字符 重新读取
         }
         if (s<4)
         {
@@ -142,6 +143,7 @@ void redraw_the_map()
                 case 1:printf("¨~");break;
                 case 2:printf("¡î");break;
                 case 3:printf("¡ï");break;
+                default:continue;
             }
             if (j==LENGTH_OF_CONSOLE/2 && i<WIDE_OF_CONSOLE) printf("\n");
         }
