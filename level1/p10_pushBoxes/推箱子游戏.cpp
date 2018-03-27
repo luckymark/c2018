@@ -16,20 +16,22 @@ void mapmaker()
 				switch(map[i][j])
 				{
 					case 0:
-						printf("¡ö");
+						printf("â– ");
 						break;
 					case 1:
-						printf("¡î");
+						printf("â˜†");
 						break;
 					case 2:
-						printf("¡â");
+						printf("â™€");
 						break;
 					case 3:
-						printf("¡õ");
+						printf("â–¡");
 						break;
 					case 4:
 						printf("  ");
 						break;
+					default:
+						printf("error");
 				}
 			}
 			printf("\n");
@@ -38,7 +40,7 @@ void mapmaker()
 		
     }
 void play()
-{ //0´ú±íÇ½£¬1´ú±íÕıÈ·µØµã£¬2´ú±íÈËÎï£¬3´ú±íÏä×Ó ,4´ú±í¿Õ°×ÇøÓò 
+{ //0ä»£è¡¨å¢™ï¼Œ1ä»£è¡¨æ­£ç¡®åœ°ç‚¹ï¼Œ2ä»£è¡¨äººç‰©ï¼Œ3ä»£è¡¨ç®±å­ ,4ä»£è¡¨ç©ºç™½åŒºåŸŸ 
     int m,n;
     int k,l;
     int over=0;
