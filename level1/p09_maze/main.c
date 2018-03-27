@@ -90,7 +90,6 @@ int randomChooseNB(int x, int y) {
     }
     if ((x + 2 <= WIDTH - 1) && (isOk(x + 2, y) == true)) {
         result[0]++;
-
         result[result[0]] = EAST;
     }
     if ((y - 2 >= 2) && (isOk(x, y - 2) == true)) {
