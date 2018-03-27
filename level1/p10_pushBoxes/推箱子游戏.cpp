@@ -218,6 +218,8 @@ void play()
 				}
 			}
 			break;
+			default:
+				printf("error\n");
 		}
 	
 	}
