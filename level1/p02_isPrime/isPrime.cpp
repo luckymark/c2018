@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <math.h>
 
 int judge(int num)
 {
 	int i,judge=0;
-	for (i=2;i<(num/2+1);i++)
+	for (i=2;i<=sqrt(num);i++)
 	{
 		judge=num%i;
 		if (judge==0)
