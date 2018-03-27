@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #define N 100
-int a[100],n=0,num;
+int a[N],n=0,num;
 void prime(void)
 {  
     int i,j=0,mod,num;
@@ -43,17 +44,22 @@ int verify(int num)
             else;
         }
     }
-    
+    return 0;
 }
 
 int main(void)
 {
     prime();
     int num;
-    for(num=4;num<=100;num++,num++)
+    for(num=4;num<=N;num++,num++)
     {
         if(verify(num)==1)
         printf("%d verify successfully!\n",num);
+        else
+        {
+            printf("error\nVerify failed!\n");
+            exit(1);
+        }
     }
     printf("Done!");
     return 0;
