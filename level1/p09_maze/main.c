@@ -65,17 +65,17 @@ void printMaze() {
                 printf("$");
                 continue;
             }
-            printf(room[getCood(j, i)].isWall == true ? "@" : " ");
+            printf(room[getCoord(j, i)].isWall == true ? "@" : " ");
         }
         printf("\n");
     }
 }
 
 int isOk(int x, int y) {  //是否被墙包围，即没有被访问过
-    if (room[getCood(x - 1, y)].isWall == true &&
-        room[getCood(x + 1, y)].isWall == true &&
-        room[getCood(x, y + 1)].isWall == true &&
-        room[getCood(x, y - 1)].isWall == true) {
+    if (room[getCoord(x - 1, y)].isWall == true &&
+        room[getCoord(x + 1, y)].isWall == true &&
+        room[getCoord(x, y + 1)].isWall == true &&
+        room[getCoord(x, y - 1)].isWall == true) {
         return true;
     }
     return false;
@@ -117,7 +117,7 @@ int getRand(int a, int b) {   //返回从a到b区间内的一个随机数，包�
     return (rand() % (b - a + 1)) + a;
 }
 
-int getCood(int x, int y) {
+int getCoord(int x, int y) {
     return (y - 1) * WIDTH + x - 1;
 }
 
@@ -133,12 +133,12 @@ void generateMaze(int width, int height) {
     memset(room, 0, size * sizeof(Room));
     for (int i = 1; i < height + 1; i++) {
         for (int j = 1; j < WIDTH + 1; j++) {
-            room[getCood(j, i * 2 - 1)].isWall = true;  //单数行全部设置成墙壁
-            room[getCood(j, i * 2)].isWall = j % 2 == 1 ? true : false;    //偶数则间隔设置
+            room[getCoord(j, i * 2 - 1)].isWall = true;  //单数行全部设置成墙壁
+            room[getCoord(j, i * 2)].isWall = j % 2 == 1 ? true : false;    //偶数则间隔设置
         }
     }
     for (int j = 1; j < WIDTH + 1; j++)
-        room[getCood(j, HEIGHT)].isWall = true;  //最后一行全为墙壁
+        room[getCoord(j, HEIGHT)].isWall = true;  //最后一行全为墙壁
 
     push(2, 2);//左上角第一个房间入栈
     while (stackNum) {
@@ -149,19 +149,19 @@ void generateMaze(int width, int height) {
         } else {
             switch (direction) {
                 case WEST:
-                    room[getCood(pt.x - 1, pt.y)].isWall = false;
+                    room[getCoord(pt.x - 1, pt.y)].isWall = false;
                     push(pt.x - 2, pt.y);
                     break;
                 case NORTH:
-                    room[getCood(pt.x, pt.y - 1)].isWall = false;
+                    room[getCoord(pt.x, pt.y - 1)].isWall = false;
                     push(pt.x, pt.y - 2);
                     break;
                 case SOUTH:
-                    room[getCood(pt.x, pt.y + 1)].isWall = false;
+                    room[getCoord(pt.x, pt.y + 1)].isWall = false;
                     push(pt.x, pt.y + 2);
                     break;
                 case EAST:
-                    room[getCood(pt.x + 1, pt.y)].isWall = false;
+                    room[getCoord(pt.x + 1, pt.y)].isWall = false;
                     push(pt.x + 2, pt.y);
                     break;
                 default:
@@ -169,7 +169,7 @@ void generateMaze(int width, int height) {
             }
         }
     }
-    room[getCood(WIDTH, HEIGHT - 1)].isWall = false;
+    room[getCoord(WIDTH, HEIGHT - 1)].isWall = false;
 
 
 }
@@ -184,22 +184,22 @@ int keyLoop() {
                         dontPrint = false;
                         switch (getch()) {
                             case 0x41://north
-                                if (room[getCood(currentPoint.x, currentPoint.y - 1)].isWall == false) {
+                                if (room[getCoord(currentPoint.x, currentPoint.y - 1)].isWall == false) {
                                     currentPoint.y -= 1;
                                 }
                                 break;
                             case 0x42://south
-                                if (room[getCood(currentPoint.x, currentPoint.y + 1)].isWall == false) {
+                                if (room[getCoord(currentPoint.x, currentPoint.y + 1)].isWall == false) {
                                     currentPoint.y += 1;
                                 }
                                 break;
                             case 0x43://east
-                                if (room[getCood(currentPoint.x + 1, currentPoint.y)].isWall == false) {
+                                if (room[getCoord(currentPoint.x + 1, currentPoint.y)].isWall == false) {
                                     currentPoint.x += 1;
                                 }
                                 break;
                             case 0x44://west
-                                if (room[getCood(currentPoint.x - 1, currentPoint.y)].isWall == false) {
+                                if (room[getCoord(currentPoint.x - 1, currentPoint.y)].isWall == false) {
                                     currentPoint.x -= 1;
                                 }
                                 break;
