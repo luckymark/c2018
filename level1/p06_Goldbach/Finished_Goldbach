@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+int prime(int x)
+{
+    int i;
+    for(i=2;i<x;i++)
+    {
+        if(x%i==0)return 0;
+    }
+    return 1;
+}
+int main()
+{
+    int i,j;
+    for(i=1;i<=50;i++)
+    {
+        for(j=2;j<2*i;j++)
+            if(prime(j)&&prime(2*i-j))
+            {
+                printf("%d=%d+%d\n",2*i,j,2*i-j);
+                break;
+            }
+    }
+    return 0;
+}
