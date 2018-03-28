@@ -94,7 +94,7 @@ void init()
                 if (i%2==1 && j%2==1) maze[i][j]=0;else maze[i][j]=1;
             }
         }
-    make_a_maze(nowx,nowy);  //dfs随机生成地图
+    make_a_maze(1,1);  //dfs随机生成地图
     maze[1][1]=2;  //设置出口
     maze[WIDE_OF_CONSOLE][LENGTH_OF_CONSOLE/2]=3;  //设置入口
     redraw_the_map();  //打印地图
