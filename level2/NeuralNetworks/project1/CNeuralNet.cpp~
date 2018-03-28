@@ -191,7 +191,7 @@ void CNeuralNet::train(string&list,string&model,bool sig,bool sig1)
             vector<double>dataInput=loadData(inputData[j],64);
             vector<double>dataOutput=loadData(outputData[j],1);
             forward(dataInput);
-            loss+=exp(abs(Output[Output.size()-1][0]-dataOutput[0]));
+            loss+=exp(exp(abs(Output[Output.size()-1][0]-dataOutput[0])));
         }
         if (loss<loss1)loss1=loss,Layer1=Layer;
     }

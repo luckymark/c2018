@@ -3,9 +3,10 @@
 using namespace std;
 struct SNeuronLayer// 神经层
 {
+    int tag;//0:分块;1:卷积
     vector<double>w;
-    SNeuronLayer(int Numvec=0);
-    SNeuronLayer(vector<double>d);
+    SNeuronLayer(int Numvec=0, int Tag=0);
+    SNeuronLayer(vector<double>d,int Tag);
     void change(vector<double>&d);
 };
 struct CNeuralNet// 神经网络对象
@@ -13,62 +14,14 @@ struct CNeuralNet// 神经网络对象
     vector<SNeuronLayer>Layer;
     vector<vector<double> >Output;
     double loss;
-    void addLayer(int Numvec);
+    void addLayer(int Numvec,int tag);
     void forward(vector<double> Input);
     void backward(vector<double> RealOutput);
     void load(string&filename);
     void save(string&filename);
     vector<double> loadData(string&filename,int sum);
+    vector<double> loadData(string&filename,int sum);
     void train(string&list,string&model,bool sig,bool sig1);
     void work(string&list,string&model,bool sig);
 };
 
-vector<double> operator-(vector<double>a,vector<double>b){
-    for (int i=0;i<a.size();i++)
-        a[i]-=b[i];
-    return a;
-}
-vector<double> operator+(vector<double>a,vector<double>b){
-    for (int i=0;i<a.size();i++)
-        a[i]+=b[i];
-    return a;
-}
-vector<double> operator/(vector<double>a,vector<double>b){
-    for (int i=0;i<a.size();i++){
-        a[i]/=b[i];
-    }
-    return a;
-}
-vector<double> operator/(vector<double>a,double b){
-    for (int i=0;i<a.size();i++)
-        a[i]/=b;
-    return a;
-}
-vector<double> operator*(vector<double>a,double b){
-    for (int i=0;i<a.size();i++)
-        a[i]*=b;
-    return a;
-}
-vector<double> operator>(vector<double>a, vector<double>b){
-    int len=a.size()/b.size();
-    for (int i=0;i<b.size();i++){
-        double v=0;
-        for (int j=0;j<len;j++)
-            v+=a[i*len+j];
-        //b[i]=sigmoid(b[i]*v);
-        b[i]*=v;
-    }
-    return b;
-}
-vector<double> operator<(vector<double>a,vector<double>b){
-    int len=a.size()/b.size();
-    for (int i=0;i<b.size();i++){
-        double v=0;
-        for (int j=0;j<len;j++)
-            v+=a[i*len+j];
-        v/=b[i];
-        for (int j=0;j<len;j++)
-            a[i*len+j]*=v;
-    }
-    return a;
-}

@@ -29,7 +29,7 @@ int main(){
     int clo=0;
     while (1){
         ++clo;
-        if (clo==20){
+        if (clo==40){
             for (int i=0;i<crowd;i++)
                 network[i].train(list,model,0,1);
         }

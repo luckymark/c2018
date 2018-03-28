@@ -2,7 +2,7 @@
 #include"CNeuralNet.h"
 #pragma comment(linker, "/STACK:102400000,102400000")
 using namespace std;
-const int T=1000,crowd=20,T1=100;
+const int T=1000,crowd=40,T1=100;
 CNeuralNet network[crowd*crowd],bestnet;
 bool cmp(const CNeuralNet&a,const CNeuralNet&b){
     return a.loss<b.loss;
@@ -19,10 +19,17 @@ int main(){
     string model="model.in";
     fstream f;
     bestnet.train(list,model,1,1);
+    cout<<"The origin loss is:"<<bestnet.loss<<endl;
     network[0]=bestnet;
     for (int i=1;i<crowd;i++)
         network[i].train(list,model,0,1);
-    for (int t=1;t<=T;t++){
+    int clo=0;
+    while (1){
+        ++clo;
+        if (clo==40){
+            for (int i=0;i<crowd;i++)
+                network[i].train(list,model,0,1);
+        }
         int sum=crowd-1;
         for (int i=0;i<crowd;i++)
             for (int j=0;j<crowd;j++)
@@ -32,6 +39,7 @@ int main(){
             network[i].train(list,model,0,0);
         sort(network,network+crowd*crowd,cmp);
         if (bestnet.loss>network[0].loss){
+            clo=0;
             bestnet=network[0];
             cout<<"find a better model with loss of "<<bestnet.loss<<"!"<<endl;
             bestnet.work(list,model,0);
@@ -53,6 +61,7 @@ int main(){
             network[i].train(list,model,0,0);
         sort(network,network+crowd*crowd,cmp);
         if (bestnet.loss>network[0].loss){
+            clo=0;
             bestnet=network[0];
             cout<<"find a better model with loss of "<<bestnet.loss<<"!"<<endl;
             bestnet.work(list,model,0);
