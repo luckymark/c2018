@@ -4,22 +4,26 @@
 #include <stdbool.h>
 #define H 27
 #define W 29
+#define N 9
 void pos(int,int);
-void creatMap(int,char[][W]);
-void move(char,char[][W]);
-void moveJudge(char[][W],int,int);
+void creatMap(void);
+void move(char);
+void moveJudge(int,int);
+void start(void);
 int judge(void);
 int coor[2]={4,9};
 int boxNum=0;
+int step=0;
+int stage=2;
+char map[H][W];
 int main(void){
-	int stage=2;
-	char map[H][W];
-	creatMap(stage,map);
+	int a;
+	start();
 	while(1)
 	{
-		move(getch(),map);	
-		if(judge())
-			break;
+		move(getch());	
+		if(judge()||stage==0)
+			start();
 	}
 	return 0;
 }
@@ -31,11 +35,14 @@ void pos(int row,int rank){
 	hOutput=GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(hOutput,position);
 }
-void creatMap(int stage,char (*map)[W])
+void creatMap(void)
 {
     int i,j,jinghao=0;
     char a;
 	FILE * fp;
+	boxNum=0;
+	step=0;
+	system("cls");
 	if((fp=fopen("allMap","r"))==NULL)
 	{
 		printf("文件打开失败！请检查allMap是否存在");
@@ -87,6 +94,10 @@ void creatMap(int stage,char (*map)[W])
 				map[j][i]=' ';
 				coor[0]=j;
 				coor[1]=i;
+				break;
+			case '5':
+				printf("▓");
+				boxNum++;
 				break; 
         	case '-':
         		i=-1;
@@ -94,86 +105,188 @@ void creatMap(int stage,char (*map)[W])
         		break;
         	default:
         		break;
-        	}	
-        	
+        	}
     	}
 	}
 	pos(coor[0],2*coor[1]);
 	printf("♀");
 }
-void loadMap(){
-	
-	
-}
-void move(char order,char (*map)[W]){
+void move(char order){
 	pos(coor[0],2*coor[1]);
 	printf("  ");
 	
 	switch(order){
 		case 'w':
-			moveJudge(map,-1,0);
+			moveJudge(-1,0);
 			break;
 		case 's':
-			moveJudge(map,1,0);
+			moveJudge(1,0);
 			break;
 		case 'a':
-			moveJudge(map,0,-1);
+			moveJudge(0,-1);
 			break;
 		case 'd':
-			moveJudge(map,0,1);
-			break;			
+			moveJudge(0,1);
+			break;
+		case 'r':
+			creatMap();
+			break;	
+		case 'q':
+			stage=0;
+			break;		
 	}
 	pos(coor[0],2*coor[1]);
 	printf("♀");
 }
 int judge(){
-	if(coor[0]==21&&coor[1]==23){
-		pos(20,40);
-		printf("you win!!!!!!!!!you win!!!!!!!you win!!!!!!");
-		return 1;
+	int a; 
+	if(boxNum==0){
+		pos(10,20);
+		printf("☆☆☆☆☆☆☆☆☆☆☆");
+		pos(11,20);
+		printf("☆ 恭喜你，完成了！ ☆");
+		pos(12,20);
+		printf("☆  共计移动%4d步  ☆",step);
+		pos(13,20);
+		printf("☆☆☆☆☆☆☆☆☆☆☆");
+		step=0;
+		pos(14,20);
+		if(stage<N){
+			printf("按r重玩本关，按d玩下一关，其余任意键重新选关");
+			switch(getch()){
+				case 'r':
+					creatMap();
+					return 0;
+					break;
+				case 'd':
+					stage++;
+					creatMap();
+					return 0;
+			}
+			return 1;
+		}
+		else{
+			printf("您已通关！！按r重玩本关，按d回到第一关，其余任意键重新选关");
+			switch(getch()){
+				case 'r':
+					creatMap();
+					return 0;
+					break;
+				case 'd':
+					stage=1;
+					creatMap();
+					return 0;
+			}
+			return 1;
+			 
+		}
 	}
 	return 0;
 }
-void moveJudge(char (*map)[W],int h,int w){
-	if(map[coor[0]+h][coor[1]+w]!='1'&&coor[0]+h>-1&&coor[0]+h<H+1&&coor[1]+w>-1&&coor[1]+w<W)
+void moveJudge(int h,int w){
+	if(map[coor[0]+h][coor[1]+w]!='1'&&coor[0]+h>-1&&coor[0]+h<H+1&&coor[1]+w>-1&&coor[1]+w<W)//不是墙 ,没越界 
 	{
-		if(map[coor[0]+2*h][coor[1]]+2*w!='1')
+		if(map[coor[0]+h][coor[1]+w]=='2')//是正常的箱子 
 		{
-			if(map[coor[0]+h][coor[1]+w]=='2')
-			{
-				pos(coor[0]+h,2*coor[1]+2*w);
-				printf("  ");
+			if(map[coor[0]+2*h][coor[1]+2*w]!='1'&&map[coor[0]+2*h][coor[1]+2*w]!='2'&&map[coor[0]+2*h][coor[1]+2*w]!='5')//为空或为X 
+			{ 
 				map[coor[0]+h][coor[1]+w]=' ';
 				pos(coor[0]+2*h,2*coor[1]+4*w);
-				printf("□");
-				if(map[coor[0]+2*h][coor[1]+4*w]=='3')
+				
+				if(map[coor[0]+2*h][coor[1]+2*w]=='3')
 				{
 					boxNum--;
-					map[coor[0]+2*h][coor[1]+4*w]='5';
+					map[coor[0]+2*h][coor[1]+2*w]='5';
+					printf("▓");
 				}
 				else
-					map[coor[0]+2*h][coor[1]+4*w]='2';
+				{
+					map[coor[0]+2*h][coor[1]+2*w]='2';
+					printf("□");
+				}
 			}
-			else if(map[coor[0]+h][coor[1]+w]=='5')
+			else{
+				return;
+			}
+		}
+		else if(map[coor[0]+h][coor[1]+w]=='5')//是下面有X的箱子 
+		{
+			if(map[coor[0]+2*h][coor[1]+2*w]!='1'&&map[coor[0]+2*h][coor[1]+2*w]!='2'&&map[coor[0]+2*h][coor[1]+2*w]!='5')
 			{
-				pos(coor[0]+h,2*coor[1]+2*w);
-				printf("×");
 				map[coor[0]+h][coor[1]+w]='3';
 				pos(coor[0]+2*h,2*coor[1]+4*w);
-				printf("□");
+				
 				boxNum++;
 				if(map[coor[0]+2*h][coor[1]+2*w]=='3')
 				{
 					map[coor[0]+2*h][coor[1]+2*w]='5';
+					boxNum--;
+					printf("▓");
 				}
 				else
+				{
 					map[coor[0]+2*h][coor[1]+2*w]='2';
+					printf("□");
+				}
 			}
-				
+			else{
+				return;
+			}
+		}
+		pos(coor[0],2*coor[1]);
+		if(map[coor[0]][coor[1]]==' ')
+		{
+			printf("  ");
+		}
+		else if(map[coor[0]][coor[1]]=='3')
+		{
+			printf("×");
 		}
 		coor[0]+=h;
 		coor[1]+=w;
-		
+		step++;	
 	}
 }
-
+void start(void){
+	int a;
+	system("cls");
+	pos(2,8);
+	printf("■■■■■■■■■■■");
+	pos(3,8);
+	printf("■      推箱子      ■");
+	pos(4,8);
+	printf("■     操作规则:    ■");
+	pos(5,8);
+	printf("■        w         ■");
+	pos(6,8);
+	printf("■      a s d       ■");
+	pos(7,8);
+	printf("■     控制移动     ■");
+	pos(8,8);
+	printf("■    r 重玩本关    ■");
+	pos(9,8);
+	printf("■    q 重新选关    ■");
+	pos(10,8);
+	printf("■      ■是墙      ■");
+	pos(11,8);
+	printf("■     □是箱子     ■");
+	pos(12,8);
+	printf("■ ▓是遮住×的箱子 ■");
+	pos(13,8);
+	printf("■ 一次只能推一个□ ■");
+	pos(14,8);
+	printf("■ □遮住所有×获胜 ■");
+	pos(15,8);
+	printf("■   输入1~9选关    ■");
+	pos(16,8);
+	printf("■■■■■■■■■■■");
+	scanf("%d",&a);
+	while(a<=0||a>9)
+	{
+		pos(16,8);
+		printf("请输入1~9之间的数！");
+		scanf("%d",&a); 
+	}
+	stage=a; 
+	creatMap();
+}
