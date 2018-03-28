@@ -1,19 +1,21 @@
 #include<stdio.h>
-#define SIZE 6
-int main(void)
+#define SPACE ' '
+int main()
 {
-	int index;
-	char num[6];
+	char ch;
+	printf("è¿™æ˜¯ä¸€ä¸ªè½¬æ¢å¯†ç çš„ç¨‹åºï¼\n");
+	printf("è¯·è¾“å…¥ä¸€ä¸ªåŸå§‹å¯†ç ï¼ˆç”±å­—ç¬¦ï¼Œæ•°å­—ï¼Œç¬¦å·ç»„æˆï¼‰ï¼š"); 
 	
-	printf("ÇëÊäÈëÁù¸ö×ÖÄ¸×÷ÎªÄãÃÜÂë³õÊ¼»¯µÄÀ´Ô´\n");
-
-	scanf("%s",num);
-	for(index=0;index<SIZE;index++)
-	num[index]=num[index]+3;	
-
-	printf("ÄãµÄÃÜÂëÎª");
-    for(index=0;index<SIZE;index++)
-
-	printf("%d",num[index]);
+	ch=getchar();
+	while(ch!='\n')
+	{
+		if(ch==SPACE)
+		putchar(ch);
+		else 
+		putchar(ch+1);
+		ch=getchar();
+	}
+	putchar(ch);
+	
 	return 0;
 }
