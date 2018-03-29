@@ -148,6 +148,7 @@ _Bool outbound(void)
 {
 	system("cls");
 	int id;
+	char mode;
 	FILE *list;
 input_more:
 	good.id = 0;
@@ -158,8 +159,13 @@ input_more:
 	}
 	show_list();
 	printf("按r返回上级菜单.\n");
-	printf("请输入存货id:\n");
-	scanf("%d", &id);
+	printf("或输入存货id:\n");
+	scanf("%c",&mode);
+	if (mode == 'r')
+	{
+		return 0;
+	}
+	scanf("%d",&id);
 	while(fread(&good, sizeof(struct goods), 1, list) != 0)
 	{
 		if (good.id == id)
