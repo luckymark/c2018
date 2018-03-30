@@ -140,9 +140,9 @@ void redraw_the_map()
             switch (maze[i][j]%10)
             {
                 case 0:printf("  ");break; //空地
-                case 1:printf("■");break;  //墙
-                case 2:printf("☆");break;  //出口
-                case 3:printf("★");break;  //入口
+                case 1:printf("##");break;  //墙
+                case 2:printf("XX");break;  //出口
+                case 3:printf("!!");break;  //入口
                 default:continue;
             }
             if (j==LENGTH_OF_CONSOLE/2 && i<WIDE_OF_CONSOLE) printf("\n");
