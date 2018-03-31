@@ -7,12 +7,11 @@
 #define N 10000
 #define LENGTH_OF_CONSOLE 100
 #define WIDE_OF_CONSOLE 30
-#define UP 72
-#define DOWN 80
-#define LEFT 75
-#define RIGHT 77
-#define REMOVE 8
-#define RESET 13
+#define UP 72 //上
+#define DOWN 80  //下
+#define LEFT 75  //左
+#define RIGHT 77  //右
+#define RESET 13 //重置
 
 void hide();
 void login();
@@ -24,7 +23,7 @@ void settle();
 int size[]={8,9,10,8,10,8};
 int reminder[]={1,1,1,1,1,1,1};
 int intial_map[MAXN][MAXN],now_map[MAXN][MAXN];
-int dealx[]={0,1,-1,0},dealy[]={1,0,0,-1};
+int dealx[]={0,1,-1,0},dealy[]={1,0,0,-1}; //存放操作动作的数组
 int end=0,now_step=0,tot_step=0,nowx,nowy,left_box,tot_box,victory;
 int level=1;
 
@@ -33,7 +32,7 @@ int main()
 {
     login();
     hide();
-    init();
+    init(); //初始化
     char c;
     int push;
     while (c=getch())
@@ -74,8 +73,8 @@ int main()
                 now_map[tempx][tempy]='3';
                 nowx=tempx;
                 nowy=tempy;
-                tot_step++;
-                now_step++;
+                tot_step++;  //记录总步数
+                now_step++;  //记录当前关卡步数
                 redraw_the_map();
                 if (! left_box )
                 {
@@ -111,7 +110,7 @@ void login()
     fp1=fopen("userlog.txt","a");
     fprintf(fp1,"\n\n%d-%d-%d %d:%d:%d\n",tm_now->tm_year+1900, tm_now->tm_mon+1, tm_now->tm_mday, tm_now->tm_hour, tm_now->tm_min, tm_now->tm_sec) ;
     fprintf(fp1,"Player:%s\n",name);
-    fclose(fp1);
+    fclose(fp1);  //将玩家每次的游戏记录储存在文本"userlog.txt"中 包括游戏的时间 玩家用户名以及每关分数
 }
 
 void init()
@@ -127,7 +126,7 @@ void init()
         fprintf(fp1,"level %d:",level);
         reminder[level]=0;
     }
-    fclose(fp1);
+    fclose(fp1);  //数据存入文件
 
     victory=0;
     now_step=0;
@@ -144,7 +143,7 @@ void hide()
     SetConsoleCursorInfo(handle, &CursorInfo);
 }
 
-void read_the_map(int level)
+void read_the_map(int level)  //读入地图
 {
     int i,j;
     FILE *fp1,*fp2;
@@ -155,11 +154,11 @@ void read_the_map(int level)
         case 3:fp1 = fopen("map3.txt","r");break;
         case 4:fp1 = fopen("map4.txt","r");break;
         case 5:fp1 = fopen("map5.txt","r");break;
-        case 6:fp1 = fopen("map6.txt","r");break;
+        case 6:fp1 = fopen("map6.txt","r");break; 
         default:
             {
                 end=1;
-                settle();
+                settle(); //通关
                 return;
             }
     }
@@ -186,7 +185,7 @@ void read_the_map(int level)
     fclose(fp1);
 }
 
-void redraw_the_map()
+void redraw_the_map()  //绘制地图 包括当前关卡和步数
 {
     system("cls");
     char nowlevel[]="Level:";
@@ -208,11 +207,11 @@ void redraw_the_map()
             switch (now_map[i][j])
             {
                 case '\n':continue;
-                case '0':printf("  ");break;
-                case '1':printf("�~");break;
-                case '2':printf("��");break;
-                case '3':printf("��");break;
-                case '4':printf("��");break;
+                case '0':printf("  ");break; //空地
+                case '1':printf("##");break; //墙
+                case '2':printf("@@");break; //地点
+                case '3':printf("!!");break; //人物
+                case '4':printf("$$");break; //箱子
                 default:continue;
             }
         }
@@ -220,10 +219,10 @@ void redraw_the_map()
     }
 }
 
-void settle()
+void settle()  //通关后显示赢得游戏胜利
 {
     system("cls");
-    char quit[]="If you want to quit the game, please press any one of 'F1'~'F9' or click '��'";
+    char quit[]="If you want to quit the game, please press any one of 'F1'~'F9' or click 'X'";
     char win[]="Congratulations! You just won all the games !";
 
     int i;
