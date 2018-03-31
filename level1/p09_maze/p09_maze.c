@@ -163,7 +163,7 @@ void settle()
     system("cls");
     char win[]="You Win !";
     char restart[]="If you want to start a new game, please press 'Enter' ";
-    char quit[]="If you want to quit the game, please press any one of 'F1'~'F9' or click '¡Á'";
+    char quit[]="If you want to quit the game, please press any one of 'F1'~'F9' or click 'X'";
     int i;
     printf("\n\n\n\n\n\n\n");
     for (i=1;i<(LENGTH_OF_CONSOLE-strlen(win))/2;i++) printf(" ");
