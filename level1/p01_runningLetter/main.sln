@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<windows.h>
+
+int main()
+{
+	for (int j = 1; j < 60; j++)
+	{
+
+		Sleep(100);
+		system("cls");
+		for (int i = 0; i < j;i++)
+		{
+			printf(" ");
+		}
+		printf("abcdefg");
+	}
+
+	for (int j = 60; j > 1; j--)
+	{
+
+		Sleep(100);
+		system("cls");
+		for (int i = 1; i < j; i++)
+		{
+			printf(" ");
+		}
+		printf("abcdefg");
+	}
+	getchar();
+	return 0;
+}
