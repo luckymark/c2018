@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<time.h>
 //#include<conio.h>
-#define N 1000
+#define N 3000
 int n,m,i,j,r,cur,curX,curY,tot,curYY,dir;
 char map[N*2][N*2],mov;
 int path[N*2][2],vis[N][N];
@@ -39,11 +39,10 @@ void print()
 }    
 int main(){
     srand((int)time(0));
-    //srand((unsigned) time(NULL));
-	printf("Input n and m (the size of maze, which is an odd number)):");
+	printf("Input n and m (the size of maze, which is an odd number)):\n");
     scanf("%d %d",&n,&m);
-    //n=25;
-    //m=25;
+    //n=55;
+    //m=135;
 	for(i=0;i<=n+1;i++)
  		for(j=0;j<=m+1;j++)
 			map[i][j] = '#';
@@ -63,12 +62,8 @@ int main(){
     path[cur][0] = curX;
     path[cur][1] = curY;
 
-    //while(cur<=(int)(tot*1.5))
     while(cur<=tot)
     {
-        //printf("\n");
-        //printf("%d\n", cur);
-        //print();
         if(isBlank(curX, curY))
         {
             ok = 0;
@@ -91,8 +86,7 @@ int main(){
             curY += dy[r];
             vis[curX][curY] = 1;
             path[cur][0] = curX;
-            path[cur][1] = curY;      
-            //printf("%d1\n", cur);  
+            path[cur][1] = curY;        
         }
         else
         {
@@ -125,8 +119,6 @@ int main(){
             //printf("%d2\n", cur);    
         }
     }
-    //printf("\n");
-    //print();
 
     printf("Start the game!\n");
     printf("Please input W/A/S/D to move:\n");
