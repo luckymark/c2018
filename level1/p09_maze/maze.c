@@ -3,7 +3,7 @@
 #include<time.h>
 //#include<conio.h>
 #define N 3000
-int n,m,i,j,r,cur,curX,curY,tot,curYY,dir;
+int n,m,i,j,r,cur,curX,curY,tot,curYY,dir,tot;
 char map[N*2][N*2],mov,t;
 int path[N*2][2],vis[N][N];
 int dx[4]={-1,0,1,0},dy[4]={0,1,0,-1};
@@ -124,7 +124,7 @@ int main(){
     map[n+1][1] = '.';
     curX++;
     print();
-
+    tot = 0;
     while(!(curX == 0 && curY==m))
     {
         scanf("%c",&mov);
@@ -135,6 +135,7 @@ int main(){
         if(mov=='a') dir=3;
         curX += dx[dir];
         curY += dy[dir];
+	tot++;
         if(map[curX][curY]=='#')
         {
             printf("Error!Please choose another direction:\n"); 
@@ -147,11 +148,10 @@ int main(){
             map[curX][curY] = '.';
             map[curX-dx[dir]][curY-dy[dir]] = ' ';
         }
-        if(curX==0 && curY==curYY)
-        {
-            printf("You win!\n");
-        }
+	system("clear");
         print();
     }
-	return 0;
+    printf("You win!\n");
+    printf("Your sum of steps is %d.\n",tot);
+    return 0;
 }

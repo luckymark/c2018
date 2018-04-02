@@ -219,6 +219,7 @@ int main(){
 		printf("You've completed %d box\n",cnt);
 		break;
             }
+	    system("clear");
             print2();
 	    printf("Step:%d\n",tot);
         }
