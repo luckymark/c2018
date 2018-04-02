@@ -4,7 +4,7 @@
 //#include<conio.h>
 #define N 3000
 int n,m,i,j,r,cur,curX,curY,tot,curYY,dir;
-char map[N*2][N*2],mov;
+char map[N*2][N*2],mov,t;
 int path[N*2][2],vis[N][N];
 int dx[4]={-1,0,1,0},dy[4]={0,1,0,-1};
 int ok=0;
@@ -39,8 +39,9 @@ void print()
 }    
 int main(){
     srand((int)time(0));
-	printf("Input n and m (the size of maze, which is an odd number)):\n");
+    printf("Input n and m (the size of maze, which is an odd number)):\n");
     scanf("%d %d",&n,&m);
+    getchar();
     //n=55;
     //m=135;
 	for(i=0;i<=n+1;i++)
@@ -49,16 +50,14 @@ int main(){
 	for(i=1;i<=n;i+=2)
  		for(j=1;j<=m;j+=2)
             map[i][j] = ' ';
-    //print();
     tot = ((n+1)/2)*((m+1)/2);
     cur = 1;
     curX = (int)(n);
     curY = (int)(m/2);
-    //curY = 3;
     if (curY%2==0) curY++;
 
-    map[0][curY] = ' ';
-    map[curX+1][curY] = ' ';
+    map[0][m] = ' ';
+    map[n+1][1] = '.';
     path[cur][0] = curX;
     path[cur][1] = curY;
 
@@ -73,10 +72,8 @@ int main(){
                 if(test(curX, curY, r))
                 {
                     ok = 1;
-                    //printf("%d   dafsdf\n", r);
                 }
-            }
-            //printf("%d\n", r);  
+            } 
             cur++;
             curX += dx[r];
             curY += dy[r];
@@ -102,7 +99,6 @@ int main(){
                 if(test(curX, curY, r))
                 {
                     ok = 1;
-                    //printf("case2 %d\n",r);
                 }
                     
             }
@@ -115,8 +111,7 @@ int main(){
             curY += dy[r];
             vis[curX][curY] = 1;
             path[cur][0] = curX;
-            path[cur][1] = curY;    
-            //printf("%d2\n", cur);    
+            path[cur][1] = curY;        
         }
     }
 
@@ -124,18 +119,16 @@ int main(){
     printf("Please input W/A/S/D to move:\n");
 
     curX = (int)(n);
-    curY = (int)(m/2);
-    if(curY%2==0) curY++;
-    curYY = curY;
-    map[curX+1][curY] = '.';
+    curY = 1;
+    map[0][m] = ' ';
+    map[n+1][1] = '.';
     curX++;
-    //printf("\n");
-    //print();
+    print();
 
-    while(!(curX == 0 && curY==curYY))
+    while(!(curX == 0 && curY==m))
     {
         scanf("%c",&mov);
-        //mov = getch();
+        getchar();
         if(mov=='w') dir=0;
         if(mov=='d') dir=1;
         if(mov=='s') dir=2;
@@ -160,6 +153,5 @@ int main(){
         }
         print();
     }
-
 	return 0;
 }
