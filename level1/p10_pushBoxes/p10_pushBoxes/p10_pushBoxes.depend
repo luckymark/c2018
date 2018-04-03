@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1522745570 source:e:\c_sources\c2018\level1\p10_pushboxes\p10_pushboxes\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
+1522482266 source:e:\c_sources\c2018\level1\p10_pushboxes\p10_pushboxes\creat_map.c
+	<stdio.h>
+
