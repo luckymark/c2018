@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1522234602 source:/home/coer/c_source/c2018/level1/p05_allPrimes/p05_allPrimes/main.c
+	<stdio.h>
+	<time.h>
+	<math.h>
+
