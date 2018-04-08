@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 #include <windows.h>
 #define ROW 10
 #define COL 10
@@ -30,12 +31,15 @@ int main(){
 	
 	output(p,x,y,'w');										//√‘π¨ µœ÷ 
 
-	m = getchar();
-	while (maze[ROW-2][COL-1] != 64){
+	m = getch();
+	while (1){
 		move(p,m,px,py);
-		m = getchar();
+		if (maze[ROW-2][COL-1] == 64){
+			break;
+		}
+		m = getch();
 	}
-	printf("Congratulations!");
+	printf("Congratulations!\n");
 	system("pause");
 	return 0;
 }
