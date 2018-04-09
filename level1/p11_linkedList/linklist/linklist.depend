@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1522993885 source:/home/coer/c_source/c2018/level1/p11_linkedList/linklist/main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
