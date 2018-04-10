@@ -19,6 +19,9 @@ const int map_ONE[10][10] = {
 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
+void plot();//根据当前位置绘制迷宫图 
+void move();//当前位置移动操作 
+
 int main()
 {
 	printf("Game start\n");
