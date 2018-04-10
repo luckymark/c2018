@@ -5,7 +5,6 @@
 #include <conio.h>
 #include <time.h>
 #define N 100
-#define TEST
 
 void logo(void)
 {
@@ -23,7 +22,7 @@ int num=0,e=0,d=0,n=0;
 char s[N];
 char s1[N];
 int s2[N];
-void get(char ch)
+int get(char ch)
 {
     if(ch=='p')
     {
@@ -55,11 +54,25 @@ void get(char ch)
     }
     else if(ch=='a')
     {
-        printf("Please input your string.\n");
-        fflush(stdin);
-        gets(s);
-        num=0;
-        while(s[++num]!='\0');
+        loop:while(1)
+        {
+            printf("Please input your string.\n");
+            fflush(stdin);
+            gets(s);
+            num=0;
+            while(s[++num]!='\0');
+            int i;
+            for(i=0;i<num;i++)
+            {
+                if(s[i]<0||s[i]>254)
+                {
+                    printf("不支持中文~~~\n");
+                    goto loop; 
+                }
+                else;
+            }
+            break;
+        }
     }
     else if(ch=='b')
     {
@@ -76,6 +89,7 @@ void get(char ch)
             else
             {
                 int i=1,p,q,r,s;
+                num=0;
                 while(s1[i])
                 {
                     if(s1[i]>='0'&&s1[i]<='9'&&s1[i+1]>='0'&&s1[i+1]<='9'&&s1[i+2]>='0'&&s1[i+2]<='9')
@@ -207,37 +221,38 @@ void key(void)
 {
     int p,q,n,n1,e,d;
     printf("Processing...\n");
-    #ifdef TEST 
     while(1)
     {
-        p=prime();
-        q=prime();
-        if(p!=q)
-        break;
-        else;
-    }
-    n=p*q;
-    n1=(p-1)*(q-1);
-    srand(time(NULL));
-    while(1)
-    {
-        e=rand()%n1+1;
-        if(gcd(e,n1)==1)
-        break;
-        else;
-    }
-    for(d=0;;d++)
-    {
-        if((d*e)%n1==1)
+        while(1)
+        {
+            p=prime();
+            q=prime();
+            if(p!=q)
+            break;
+            else;
+        }
+        n=p*q;
+        n1=(p-1)*(q-1);
+        srand(time(NULL));
+        while(1)
+        {
+            e=rand()%n1+1;
+            if(gcd(e,n1)==1)
+            break;
+            else;
+        }
+        for(d=0;;d++)
+        {
+            if((d*e)%n1==1)
+            break;
+            else;
+        }
+        if(d!=e&&d>2&&e>2&&n<1000)
         break;
         else;
     }
     printf("your private key is %d*%d\n",d,n);
-    printf("your public key is %d*%d\n",e,n); //bug,有一定概率得不到正确keys... 
-    #else
-    printf("your private key is 29*323\n");
-    printf("your public key is 5*323\n");
-    #endif
+    printf("your public key is %d*%d\n",e,n);
     printf("Press any key to continue.\n");
     while (!getch());
     logo();
@@ -250,14 +265,8 @@ void encrypt(void)
     get('a');
     int i;
     for(i=0;i<num;i++)
-    {
-        char temp0;
-        double temp1;
-        temp0=s[i];
-        temp1=(double)temp0;
-        //s_e[i]=fmod(pow(temp1,(double)e),(double)n); 容易溢出得不到正确值 
-        s_e[i]=mod(temp1,e,n);
-    } 
+    //s_e[i]=fmod(pow((double)s[i],(double)e),(double)n); 容易溢出得不到正确值 
+    s_e[i]=mod(s[i],e,n);
     printf("Encrypted string is\n*");
     for(i=0;i<num;i++)
     printf("%.f*",s_e[i]);
@@ -269,27 +278,16 @@ void encrypt(void)
  
 void decrypt(void)
 {
-    int s_d1[N];
-    int s_d2[N];
+    int s_d[N];
     get('p');
     get('b');
     int i=0; 
     for(i=0;i<num;i++)
-    {
-        int temp0;
-        double temp1;
-        temp0=s2[i];
-        temp1=(double)temp0;
-        //s_d1[i]=fmod(pow(temp1,(double)d),(double)n); 容易溢出得不到正确值
-        s_d1[i]=mod(temp1,d,n);
-    }
-    /*for(i=0;i<num;i++)
-    {
-        s_d2[i]=ceil(s_d1[i]);
-    }*/ 
+    //s_d[i]=fmod(pow(temp1,(double)d),(double)n); 容易溢出得不到正确值
+    s_d[i]=mod(s2[i],d,n);
     printf("Decrypted string is\n");
     for(i=0;i<num;i++)
-    printf("%c",s_d1[i]);
+    printf("%c",s_d[i]);
     printf("\n");
     printf("Press any key to continue.\n");
     while (!getch());
