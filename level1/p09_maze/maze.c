@@ -6,7 +6,7 @@ int x,y,i,j,t;
 
 int map_TWO[10][10];
 
-int map_ONE[10][10] = {
+const int map_ONE[10][10] = {
 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 {2, 0, 0, 0, 0, 0, 0, 0, 1, 1},
 {1, 1, 1, 1, 0, 1, 1, 0, 1, 1},
@@ -18,6 +18,43 @@ int map_ONE[10][10] = {
 {1, 0, 0, 0, 1, 0, 0, 0, 0, 3},
 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
+
+int main()
+{
+	printf("Game start\n");
+	printf("w is up, a is left, s is down, d is right, q is end\n");
+	x = 1;
+	y = 0;
+	for(i = 0; i < 10; i++)
+	{
+		for(j = 0; j < 10; j++)
+		{
+			map_TWO[i][j] = map_ONE[i][j];
+		}
+	}
+	map_TWO[1][0] = 9;
+	
+	plot();
+	
+	while(map_TWO[8][9] != 9)
+	{
+		for(i = 0; i < 10; i++)
+		{
+			for(j = 0; j < 10; j++)
+			{
+				map_TWO[i][j] = map_ONE[i][j];
+			}
+		}
+		move();
+		if(map_TWO[8][9] == 9)
+		{
+			printf("You win!\n");
+			break;
+		}
+	}
+	
+	return 0;
+}
 
 void plot()//根据当前位置绘制迷宫图 
 {
@@ -115,41 +152,4 @@ void move()//当前位置移动操作
                 break;  
             }  
 	}
-}
-
-int main()
-{
-	printf("Game start\n");
-	printf("w is up, a is left, s is down, d is right, q is end\n");
-	x = 1;
-	y = 0;
-	for(i = 0; i < 10; i++)
-	{
-		for(j = 0; j < 10; j++)
-		{
-			map_TWO[i][j] = map_ONE[i][j];
-		}
-	}
-	map_TWO[1][0] = 9;
-	
-	plot();
-	
-	while(map_TWO[8][9] != 9)
-	{
-		for(i = 0; i < 10; i++)
-		{
-			for(j = 0; j < 10; j++)
-			{
-				map_TWO[i][j] = map_ONE[i][j];
-			}
-		}
-		move();
-		if(map_TWO[8][9] == 9)
-		{
-			printf("You win!\n");
-			break;
-		}
-	}
-	
-	return 0;
 }
