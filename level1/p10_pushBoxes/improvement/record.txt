@@ -1,0 +1,3 @@
+map:2 player: step:125
+map:2 player:ken step:128
+map:2 player:KEN CHAN step:125
