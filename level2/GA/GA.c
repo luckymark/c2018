@@ -68,9 +68,10 @@ double mark(char[]);
 void tongji(void);
 
 int main(void){
-	int a;
+	int a,t1,t2;
 	srand((unsigned)(time(NULL)));
 	finstart();
+	t1=clock();
 	for(epochI=0;epochI<EPOCHCISHU;epochI++)
 	{
 	initPop();
@@ -83,10 +84,12 @@ int main(void){
 	else
 	{
 	printone(a);
-	printf("共繁衍%d代\n",sucdaishu[epochI]);
+	printf("繁衍%d代 \n",sucdaishu[epochI]);
 	}
 	}
+	t2=clock();
 	tongji();
+	printf("平均用时%fs\n",(t2-t1)/(double)EPOCHCISHU*1000);
 	return 0;
 }
 void finstart(void){
@@ -275,7 +278,7 @@ void printone(int winner){
 	printgene(winner);
 }
 int epoch(int daishu){
-	int i,j;
+	int i,j,t;
 	int father,mother;
 	double sumMark;
 	indiv sonPopul[100];
