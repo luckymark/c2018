@@ -1,0 +1,9 @@
+   24609    Apple
+      39    Banana
+      13    Orange
+   12435    Cat
+    1244    Telephone
+    1230    Bicycle
+       1    Tissue
+      13    Dollar
+       1    Unknownone
