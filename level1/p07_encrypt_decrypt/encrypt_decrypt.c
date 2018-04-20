@@ -1,15 +1,48 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#include <math.h>
-#include <conio.h>
+#include <string.h>
 #include <time.h>
-#define N 100
+#ifdef _WIN32
+#include <conio.h>
+#else
+#include <stdio_ext.h>
+#endif
+#define N 1000
+
+void clrbuf(void);
+void logo(void);
+void get(char ch);
+int prime(void);
+int gcd(int a,int b);
+int mod(int a,int b,int p);
+void key(void);
+void encrypt(void);
+void decrypt(void);
+
+#ifndef _WIN32
+int getch(void)
+{
+    char ch;
+    ch=getchar();
+    clrbuf(); 
+    return ch;
+} 
+#endif
+
+void clrbuf(void)
+{
+    #ifdef _WIN32
+    rewind(stdin);
+    #else
+    __fpurge(stdin);
+    #endif
+}
+//用库函数的话只能这样 
 
 void logo(void)
 {
     printf("************************************************\n");
-    printf("*********String encrypter and decrypter*********\n");
+    printf("*********String Encrypter and Decrypter*********\n");
     printf("************************************************\n");
     printf("\n");
     printf("Press 'k' to generate keys\n");
@@ -21,21 +54,24 @@ void logo(void)
 int num=0,e=0,d=0,n=0;
 char s[N];
 char s1[N];
-int s2[N];
-int get(char ch)
+int s2[N]={0};
+
+void get(char ch)
 {
     if(ch=='p')
     {
         while(1)
         {
             printf("Please input your private key.\n");
-            fflush(stdin);
+            clrbuf();
+            d=0;
+            n=0;
             scanf("%d*%d",&d,&n);
             if((d!=0)&&(n!=0))
             break;
             else
             printf("Invalid key!!!\n");
-            fflush(stdin);
+            clrbuf();
         }
     }
     else if(ch=='k')
@@ -43,13 +79,15 @@ int get(char ch)
         while(1)
         {
             printf("Please input your public key.\n");
-            fflush(stdin);
+            clrbuf();
+            e=0;
+            n=0;
             scanf("%d*%d",&e,&n);
             if((e!=0)&&(n!=0))
             break;
             else
             printf("Invalid key!!!\n");
-            fflush(stdin);
+            clrbuf();
         }
     }
     else if(ch=='a')
@@ -57,14 +95,16 @@ int get(char ch)
         loop:while(1)
         {
             printf("Please input your string.\n");
-            fflush(stdin);
-            gets(s);
+            clrbuf();
+            fgets(s,N,stdin);
             num=0;
-            while(s[++num]!='\0');
+            if(s[0]=='\n')
+            continue;
+            while(s[++num]!='\n');
             int i;
             for(i=0;i<num;i++)
             {
-                if(s[i]<0||s[i]>254)
+                if(s[i]<0)
                 {
                     printf("不支持中文~~~\n");
                     goto loop; 
@@ -79,8 +119,8 @@ int get(char ch)
         while(1)
         {
             printf("Please input your string.\n");
-            fflush(stdin);
-            gets(s1);
+            clrbuf();
+            fgets(s1,N,stdin);
             if(s1[0]!='*')
             {
                 printf("Invalid string!!!\n");
@@ -88,50 +128,28 @@ int get(char ch)
             }
             else
             {
-                int i=1,p,q,r,s;
+                int i=1;
                 num=0;
-                while(s1[i])
+                int max=strlen(s1);
+                while(i<max)
                 {
-                    if(s1[i]>='0'&&s1[i]<='9'&&s1[i+1]>='0'&&s1[i+1]<='9'&&s1[i+2]>='0'&&s1[i+2]<='9')
-                    {
-                        p=s1[i]-'0';
-                        q=s1[i+1]-'0';
-                        r=s1[i+2]-'0';
-                        s2[num]=r+10*q+100*p;
-                        num++;
-                        i=i+3;
-                        continue;
-                    }
-                    else if(s1[i]>='0'&&s1[i]<='9'&&s1[i+1]>='0'&&s1[i+1]<='9'&&s1[i+2]=='*')
-                    {
-                        q=s1[i]-'0';
-                        r=s1[i+1]-'0';
-                        s2[num]=r+10*q;
-                        num++;
-                        i=i+2;
-                        continue;
-                    }
-                    else if(s1[i]>='0'&&s1[i]<='9'&&s1[i+1]=='*')
-                    {
-                        r=s1[i]-'0';
-                        s2[num]=r;
-                        num++;
-                        i++;
-                        continue;
-                    }
-                    else if(s1[i]=='*')
-                    {
-                        i++;
-                        continue;
-                    }
+                    sscanf(&s1[i],"%d*",&s2[num]);
+                    if(s2[num]>0&&s2[num]<10)
+                    i=i+2,num++; 
+                    else if(s2[num]>=10&&s2[num]<100)
+                    i=i+3,num++;
+                    else if(s2[num]>=100&&s2[num]<1000)
+                    i=i+4,num++;
                     else
-                    i++;    
-                }
+                    {i++; continue;}
+                } 
             }
+        break;
+        }
         /*while(1)
         {
             printf("please input your string.\n");
-            fflush(stdin);
+            clrbuf();
             char ch;
             scanf("%c",&ch);
             if(ch!='*')
@@ -156,8 +174,6 @@ int get(char ch)
             }
             break;
         }*/
-        break;
-        }
     }
     else;
 }
@@ -247,7 +263,7 @@ void key(void)
             break;
             else;
         }
-        if(d!=e&&d>2&&e>2&&n<1000)
+        if(d!=e&&d>2&&e>2&&n>127&&n<1000)
         break;
         else;
     }
@@ -296,6 +312,10 @@ void decrypt(void)
 
 int main(void)
 {
+    
+    #ifdef _WIN32
+    system("color f9");
+    #endif
     logo();
     while(1)
     {
