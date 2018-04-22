@@ -1,7 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define N 100
+
+void prime(void);
+int verify(int num);
+
 int a[N],n=0,num;
+
 void prime(void)
 {  
     int i,j=0,mod,num;
@@ -15,7 +20,6 @@ void prime(void)
         }while(mod!=0);
         if(i>=num)
         {
-            //printf("%d ",num);
             n++;
             for(;;)
             {
@@ -26,10 +30,6 @@ void prime(void)
         }
         else;
     }
-    /*for(j=0;j<n;j++)
-    {
-        printf("%d ",a[j]);
-    } */
 }
 
 int verify(int num)
@@ -40,7 +40,10 @@ int verify(int num)
         for(j=0;j<n;j++)
         {
             if(num==a[i]+a[j])
-            return 1;
+            {
+                printf("%d=%d+%d\n",num,a[i],a[j]);
+                return 1;
+            }
             else;
         }
     }
@@ -53,14 +56,13 @@ int main(void)
     int num;
     for(num=4;num<=N;num++,num++)
     {
-        if(verify(num)==1)
-        printf("%d verify successfully!\n",num);
+        if(verify(num)==1);
         else
         {
             printf("error\nVerify failed!\n");
             exit(1);
         }
     }
-    printf("Done!");
+    printf("Verify successfully!");
     return 0;
 }
