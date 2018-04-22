@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include<stdlib.h>
+#define LEN sizeof(struct node)
+struct node{
+    int id;
+    int data;
+    struct node *next;
+}node;
+void Reversing_Output_List(struct node* list) {
+    if (list != NULL)
+    {
+        if (list->next != NULL)
+        {
+            Reversing_Output_List(list->next);
+        }
+        printf("%d.%d \n", list->id,list->data);
+    }
+}
+int main(){
+    struct node *p,*pl,*head;
+    head=p=(struct node *)malloc(LEN);
+    scanf("%d",&p->data);
+    int i=1;
+    while(p->data!=0)
+          {
+              pl=p;
+              p=(struct node *)malloc(LEN);
+              scanf("%d",&p->data);
+              pl->next=p;
+              pl->id=i;
+              i++;
+          }
+    p->next=NULL;
+    p=head;
+    while(p->next!=NULL)
+    {
+        printf("%d.%d \n",p->id,p->data);
+        p=p->next;
+    }
+    p=head;
+    Reversing_Output_List(p);
+    int k=-1;
+    p=head;
+    while(p != NULL)
+        {
+            if(p->data == 5)
+            {
+                k=p->id;
+                printf("%d \n",k);
+            }
+             p = p->next;
+        }
+    if(k==-1)
+        printf("-1\n");
+    return 0;
+}
