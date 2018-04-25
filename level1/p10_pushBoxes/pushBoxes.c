@@ -2,11 +2,11 @@
 #include <stdlib.h>
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
-int a,b,x,y,r,t,num;
+int a,b,x,y,r,t,num,stepnum;
 int map_ONE[10][10], map_TWO[10][10];
 int BOX_ONE_X,BOX_ONE_Y,BOX_TWO_X,BOX_TWO_Y,BOX_THREE_X,BOX_THREE_Y,BOX_FOUR_X,BOX_FOUR_Y,BOX_COUNT;
 
-void plot(int n);//根据当前位置绘制地图
+void plot(int m,int n);//根据当前位置绘制地图
 void move();//当前位置移动操作
 void judge(int n);//判断是否获胜并是否进入下一关
 void map(int n);//选择使用的地图
@@ -17,6 +17,7 @@ int main(int argc, char *argv[]) {
 	num = 1;
 	r = 0;
 	BOX_COUNT = 1;
+	stepnum = 0;
 	
 	printf("Game start\n");
 	printf("w is up, a is left, s is down, d is right, q is end\n");
@@ -29,25 +30,26 @@ int main(int argc, char *argv[]) {
 			}
 		}
 		search(num);
-		plot(num);
+		plot(stepnum,num);
 		while(r != 1){
 			move();
-			plot(num);
+			plot(stepnum,num);
 			search(num);
 			if(r == 0){
-				judge(num);
+				judge(stepnum);
 			}
 		}
 	}
 	return 0;
 }
 
-void plot(int n){//根据当前位置绘制地图
+void plot(int m,int n){//根据当前位置绘制地图
 	int i,j;
 	system("cls");
 	printf("Game start\n");
 	printf("w is up, a is left, s is down, d is right, q is end, r is again\n");
 	printf("Round %d\n", n);
+	printf("Record: %d\n", m);
 	for(i = 0; i < 10; i++){
 		for(j = 0; j < 10; j++){
 			if(map_TWO[i][j] == 1){
@@ -82,6 +84,7 @@ void move(){//当前位置移动操作
 				}else{
 					map_TWO[x+1][y] = 0;
 				}
+				stepnum++;
 			}
 			else if(map_TWO[x-1][y] == 5){
 				if(map_TWO[x-2][y] == 0 || map_TWO[x-2][y] == 9){
@@ -94,7 +97,7 @@ void move(){//当前位置移动操作
 					}else{
 						map_TWO[x+1][y] = 0;
 					}
-					map_TWO[x+1][y] = 0;
+					stepnum++;
 				}
 			 } 
 			break;
@@ -103,7 +106,12 @@ void move(){//当前位置移动操作
 			if(map_TWO[x][y-1] == 0 || map_TWO[x][y-1] == 9){
 				y--;
 				map_TWO[x][y] = 3;
-				map_TWO[x][y+1] = 0;
+				if(map_ONE[x][y+1] == 9){
+					map_TWO[x][y+1] = 9;
+				}else{
+					map_TWO[x][y+1] = 0;
+				}
+				stepnum++;
 			}
 			else if(map_TWO[x][y-1] == 5){
 				if(map_TWO[x][y-2] == 0 || map_TWO[x][y-2] == 9){
@@ -111,16 +119,26 @@ void move(){//当前位置移动操作
 					b = y-1;
 					map_TWO[x][y] = 3;
 					map_TWO[x][b] = 5;
-					map_TWO[x][y+1] = 0;
+					if(map_ONE[x][y+1] == 9){
+						map_TWO[x][y+1] = 9;
+					}else{
+						map_TWO[x][y+1] = 0;
+					}
+					stepnum++;
 				}
-			} 
+			}
 			break;
 		}
 		case 's':{
 			if(map_TWO[x+1][y] == 0 || map_TWO[x+1][y] == 9){
 				x++;
 				map_TWO[x][y] = 3;
-				map_TWO[x-1][y] = 0;
+				if(map_ONE[x-1][y] == 9){
+					map_TWO[x-1][y] = 9;
+				}else{
+					map_TWO[x-1][y] = 0;
+				}
+				stepnum++;
 			}
 			else if(map_TWO[x+1][y] == 5){
 				if(map_TWO[x+2][y] == 0 || map_TWO[x+2][y] == 9){
@@ -128,7 +146,12 @@ void move(){//当前位置移动操作
 					a = x+1;
 					map_TWO[x][y] = 3;
 					map_TWO[a][y] = 5;
-					map_TWO[x-1][y] = 0;
+					if(map_ONE[x-1][y] == 9){
+						map_TWO[x-1][y] = 9;
+					}else{
+						map_TWO[x-1][y] = 0;
+					}
+					stepnum++;
 				}
 			} 
 			break;
@@ -137,7 +160,12 @@ void move(){//当前位置移动操作
 			if(map_TWO[x][y+1] == 0 || map_TWO[x][y+1] == 9){
 				y++;
 				map_TWO[x][y] = 3;
-				map_TWO[x][y-1] = 0;
+				if(map_ONE[x][y-1] == 9){
+					map_TWO[x][y-1] = 9;
+				}else{
+					map_TWO[x][y-1] = 0;
+				}
+				stepnum++;
 			}
 			else if(map_TWO[x][y+1] == 5){
 				if(map_TWO[x][y+2] == 0 || map_TWO[x][y+2] == 9){
@@ -145,7 +173,12 @@ void move(){//当前位置移动操作
 					b = y+1;
 					map_TWO[x][y] = 3;
 					map_TWO[x][b] = 5;
-					map_TWO[x][y-1] = 0;
+					if(map_ONE[x][y-1] == 9){
+						map_TWO[x][y-1] = 9;
+					}else{
+						map_TWO[x][y-1] = 0;
+					}
+					stepnum++;
 				}
 			} 
 			break;
@@ -176,6 +209,10 @@ void move(){//当前位置移动操作
 void judge(int n){//判断是否获胜并是否进入下一关
 	int k = 0;
 	int t;
+	FILE *fp;
+	fp = fopen("record.txt", "w+");
+	fprintf(fp,"Record: %d\n", n);
+	fclose(fp);
 	if(map_ONE[BOX_ONE_X][BOX_ONE_Y] == 9 && map_ONE[BOX_TWO_X][BOX_TWO_Y] == 9 && map_ONE[BOX_THREE_X][BOX_THREE_Y] == 9 && map_ONE[BOX_FOUR_X][BOX_FOUR_Y] == 9){
 		printf("You win!\n");
 		printf("Next pass?(y is Yes and n is No)\n");
