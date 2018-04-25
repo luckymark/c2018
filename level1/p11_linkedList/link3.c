@@ -1,27 +1,23 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-int count[50]={0}; 
 struct student
 {
 	int num;
 	struct stduent *next;
 };
+
 int main()
-{
-	int a=0; 
+{ 
 	struct student *head,*current,*already;
 	current=head=(struct student*)malloc(sizeof(struct student));
 	printf("ÊäÈë0½áÊø\n");
 	scanf("%d",&current->num);
-	count[a]=current->num;
 	while(current->num!=0)
 	{
-		a++;
 		already=current;
 		current=(struct student*)malloc(sizeof(struct student));
 		scanf("%d",&current->num);
-		count[a]=current->num;
 		already->next=current;
 	}
 	current->next=NULL;
@@ -55,10 +51,24 @@ int main()
 	if(g==0)
 	printf("-1\n"); 
 	printf("------------------Á´±íÄæĞò-------------------\n") ;
-	while(a>=0)
-	{
-		printf("%d\n",count[a]);
-		a--;
+	struct student *prev,*later;
+ 	prev=NULL;
+ 	later=head->next;
+ 	while(later!=NULL)
+ 	{
+ 		head->next=prev;
+		 prev=head;
+		 head=later;
+		 later=later->next;	
 	}
+	head->next=prev;
+	prev=NULL;
+	current=head;
+	while(current->next!=NULL)
+	{
+		printf("%d\n",current->num);
+		current=current->next;
+	}
+	printf("%d\n",current->num);
 	return 0;
 }
