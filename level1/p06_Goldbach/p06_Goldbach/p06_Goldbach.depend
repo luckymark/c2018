@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1521973856 source:/home/coer/c_source/c2018/level1/p06_Goldbach/p06_Goldbach/main.c
+	<stdio.h>
+	<stdlib.h>
+

@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1522072080 source:/home/coer/c_source/c2018/level1/p07_encrypt_decrypt/p07_encrypt_decrypt/main.c
+	<stdio.h>
+	<string.h>
+
