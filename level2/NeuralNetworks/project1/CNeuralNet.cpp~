@@ -81,7 +81,7 @@ void CNeuralNet::backward(vector<double> RealOutput)
     static double sum;
     sum=Layer.size();
     int sum1=Output.size()-1;
-    double Rate=min(rand()%50*0.1,1.0);
+    double Rate=min(rand()%500*0.01,1.0);
     if (rand()&3)Rate=1;
     static vector<double> ChangeSetting;
     for (int i=Layer.size()-1;i>=0;i--){
@@ -176,7 +176,7 @@ void CNeuralNet::train(string&list,string&model,bool sig,bool sig1)
     for (int i=0;i<inputData.size();i++)d[i]=i;
     for (int i=1;i<=Rounds;i++){
         random_shuffle(d+0,d+inputData.size());
-        int x=rand()%10+5;
+        int x=rand()%20+5;
         for (int J=0;J<inputData.size();J++){
             if (rand()%x==1)continue;
             int j=d[J];
@@ -191,7 +191,7 @@ void CNeuralNet::train(string&list,string&model,bool sig,bool sig1)
             vector<double>dataInput=loadData(inputData[j],64);
             vector<double>dataOutput=loadData(outputData[j],1);
             forward(dataInput);
-            loss+=exp(exp(abs(Output[Output.size()-1][0]-dataOutput[0])));
+            loss+=exp(abs(Output[Output.size()-1][0]-dataOutput[0]));
         }
         if (loss<loss1)loss1=loss,Layer1=Layer;
     }

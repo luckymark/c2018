@@ -8,9 +8,12 @@ bool cmp(const CNeuralNet&a,const CNeuralNet&b){
     return a.loss<b.loss;
 }
 CNeuralNet operator*(CNeuralNet a,CNeuralNet b){
-    for (int i=0;i<a.Layer.size();i++)
-        for (int j=0;j<a.Layer[i].w.size();j++)
-            a.Layer[i].w[j]=(a.Layer[i].w[j]+b.Layer[i].w[j])/2;
+    for (int i=0;i<a.Layer.size();i++){ 
+        int x=rand()%101;
+        for (int j=0;j<a.Layer[i].w.size();j++){
+            a.Layer[i].w[j]=(a.Layer[i].w[j]*x+b.Layer[i].w[j]*(100-x))/100;
+        }
+    }
     return a;
 }
 int main(){
@@ -26,8 +29,11 @@ int main(){
     int clo=0;
     while (1){
         ++clo;
-        if (clo==40){
-            for (int i=0;i<crowd;i++)
+        if (clo==10){
+            clo=0;
+            int x=rand()%5;
+            cout<<"Bang!!!Left "<<x+1<<"people"<<endl;
+            for (int i=x;i<crowd;i++)
                 network[i].train(list,model,0,1);
         }
         int sum=crowd-1;
@@ -39,7 +45,7 @@ int main(){
             network[i].train(list,model,0,0);
         sort(network,network+crowd*crowd,cmp);
         if (bestnet.loss>network[0].loss){
-            clo=0;
+            if (network[0].loss/bestnet.loss<0.80)clo=0;
             bestnet=network[0];
             cout<<"find a better model with loss of "<<bestnet.loss<<"!"<<endl;
             bestnet.work(list,model,0);
@@ -61,7 +67,7 @@ int main(){
             network[i].train(list,model,0,0);
         sort(network,network+crowd*crowd,cmp);
         if (bestnet.loss>network[0].loss){
-            clo=0;
+            if (network[0].loss/bestnet.loss<0.80)clo=0;
             bestnet=network[0];
             cout<<"find a better model with loss of "<<bestnet.loss<<"!"<<endl;
             bestnet.work(list,model,0);
