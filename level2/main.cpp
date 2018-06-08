@@ -5,10 +5,11 @@
 #include<math.h>
 #include<time.h>
 #define len 15
-
+#include<algorithm>
+using namespace std;
 int map[len][len];
 int worb = 2;
-int count = 0;
+int count_0 = 0;
 int m;
 
 int nowx,nowy;
@@ -25,7 +26,7 @@ int jugde_chess(int x,int y);
 int judgewinner(int x,int y,int worb);
 int ai_step();
 int givescore(int x,int y,int worb);
-int maxmin(int worb, int count, int alpha, int beta);
+int maxmin(int worb, int count_0, int alpha, int beta);
 
 struct _cursor
 {
@@ -148,7 +149,7 @@ void initial()
 		}
 	}	
 	worb = 2;	
-	count = 0;
+	count_0 = 0;
 	system("cls");
 	make_map();
 	cursor.x = 0;
@@ -165,80 +166,80 @@ int judge_chess(int x, int y)
 
 int judgewinner(int x,int y,int worb)
 {
-	int row, col, count;
+	int row, col, count_0;
 	row = x;
 	col = y;
-	count = 0;
+	count_0 = 0;
 	while (map[row][col] == worb && col < len)
 	{
-		count++;
+		count_0++;
 		col++;
 	}
 	col = y - 1;
 	while (map[row][col] == worb && col >= 0)
 	{
-		count++;
+		count_0++;
 		col--;
 	}
-	if (count >= 5)
+	if (count_0 >= 5)
 	return 1;
 
 
 	row = x;
 	col = y;
-	count = 0;
+	count_0 = 0;
 	while (map[row][col] == worb && row < len)
 	{
-		count++;
+		count_0++;
 		row++;
 	}
 	row = x - 1;
 	while (map[row][col] == worb && row >= 0)
 	{
-		count++;
+		count_0++;
 		row--;
 	}
-	if (count >= 5)
+	if (count_0 >= 5)
 	return 1;
 
 
 	row = x;
 	col = y;
-	count = 0;
+	count_0 = 0;
 	while (map[row][col] == worb && col < len && row < len)
 	{
-		count++;
+		count_0++;
 		col++;
 		row++;
 	}
 	col = y - 1, row = x - 1;
 	while (map[row][col] == worb && col >= 0 && row >= 0)
 	{
-		count++;
+		count_0++;
 		col--;
 		row--;
 	}
-	if (count >= 5)
+	if (count_0 >= 5)
 	return 1;
 
 
 	row = x;
 	col = y;
-	count = 0;
+	count_0 = 0;
 	while (map[row][col] == worb && col < len && row >= 0)
 	{
-		count++;
+		count_0++;
 		col++;
 		row--;
 	}
 	col = y - 1, row = x + 1;
 	while (map[row][col] == worb && col >= 0 && row < len)
 	{
-		count++;
+		count_0++;
 		col--;
 		row++;
 	}
-	if (count >= 5)
+	if (count_0 >= 5)
 	return 1;
 
 	return 0;
@@ -253,12 +254,12 @@ int ai_step()
 {
 	int i, j, cscore, cscorel, pscore, pscorel, row1, col1, row2, col2, x, y;
 	cscore = pscore = 0; row1 = row2 = col1 = col2 = 0;
-	if (count == 1)
+	if (count_0 == 1)
 	{
 		srand((unsigned)time(NULL));
 		row1 = rand() % 3+posx-1;
 		col1 = rand() % 3+posy-1;
-		count++;
+		count_0++;
 		while (judge_chess(row1, col1)||row1<0||row1>=len||col1<0||col1>=len)
 		{	
 		row1 = rand() % 3+posx-1;
@@ -318,11 +319,11 @@ int ai_step()
 			}
 		}
 		
-	if(count == 3)
+	if(count_0 == 3)
 	{
 		map[row1][col1] = 1;
 		worb = 3 - worb;
-		count++;
+		count_0++;
 		x = abs(cursor.x - col1);
 		y = abs(cursor.y - 2 - row1);
 		if (cursor.x - col1>0)
@@ -379,7 +380,7 @@ int ai_step()
 	}
 	map[row1][col1] = 1;
 			worb = 3 - worb;
-			count++;
+			count_0++;
 			x = abs(cursor.x - col1);
 			y = abs(cursor.y - 2 - row1);
 			if (cursor.x - col1>0)
@@ -407,7 +408,7 @@ int ai_step()
 		{
 			map[row1][col1] = 1;
 			worb = 3 - worb;
-			count++;
+			count_0++;
 			x = abs(cursor.x - col1);
 			y = abs(cursor.y - 2 - row1);
 			if (cursor.x - col1>0)
@@ -432,7 +433,7 @@ int ai_step()
 		{
 			map[row2][col2] = 1;
 			worb = 3 - worb;
-			count++;
+			count_0++;
 			x = abs(cursor.x - col2);
 			y = abs(cursor.y - 2 - row2);
 			if (cursor.x - col2>0)
@@ -751,11 +752,11 @@ break;
 }
 else if (key == 32)//Âä×Ó 
 {
-if (count == len * len)
+if (count_0 == len * len)
 {
 gotoxy(22, 13);
 printf("¡¾ Æ½¾Ö ¡¿");
-count = 0;
+count_0 = 0;
 break;
 }
 else if (worb == 2)
@@ -773,7 +774,7 @@ posx=cursor.y - 2;
 posy=cursor.x;
 
 
-count++;
+count_0++;
 
 
 
@@ -900,7 +901,7 @@ if(judge_chess(cursor.y-2,cursor.x) == 0)
 {
 map[cursor.y-2][cursor.x] = 2;
 printf("¡ð");
-count++;
+count_0++;
 if(judgewinner(cursor.y-2,cursor.x,worb))
 {
 gotoxy(22, 15);
@@ -935,7 +936,7 @@ if(judge_chess(cursor.y-2,cursor.x) == 0)
 {
 map[cursor.y-2][cursor.x] = 1;
 printf("¡ñ");
-count++;
+count_0++;
 if(judgewinner(cursor.y-2,cursor.x,worb))
 {
 gotoxy(22, 15);
@@ -978,107 +979,209 @@ break;
 }
 
 
-int maxmin(int worb, int count, int alpha, int beta)
-{
-	int i,j,k,h;
-	int f;
-	int flag;
-	if(count>4)
-	return f=givescore(nowx,nowy,1)-givescore(nowx,nowy,2);
-	flag=judgewinner(nowx,nowy,worb);
-	if(1==flag)
-	return f=givescore(nowx,nowy,1)-givescore(nowx,nowy,2);
-	posx=nowx;
-	posy=nowy;
-	if(worb==1)
-	{
-		for(i=0;i<len;i++)
-		{
-			for(j=0;j<len;j++)
-			{
-				int mark=0;
-				for(k=-3;k<4;k++)
-				{
-					for(h=-3;h<4;h++)
-					{
-						if(i+k>=0&&i+k<len&&j+h>=0&&j+h<len)
-						{
-							if(map[i+k][j+h]!=0)
-							mark++;
-						}
-						
-					}
-				}
-				if(mark)
-				{
-				if(map[i][j]==0)
-				{
-					nowx=i;
-					nowy=j;
-					int val;
-					map[i][j]=worb;
-					val=maxmin(3-worb,count+1,alpha,beta);
-					map[i][j]=0;
-					if(val>alpha)
-					{
-						alpha=val;
-						ansx=i;
-						ansy=j;
-					}
-					if(alpha>=beta)
-					return alpha;
-				}
-				}
-			}
-		}
-		
-		return alpha;
-	}
-	
-	else 
-	{
-		for(i=0;i<len;i++)
-		{
-			for(j=0;j<len;j++)
-			{
-				int mark=0;
-				for(k=-3;k<4;k++)
-				{
-					for(h=-3;h<4;h++)
-					{
-						if(i+k>=0&&i+k<len&&j+h>=0&&j+h<len)
-						{
-							if(map[i+k][j+h]!=0)
-							mark++;
-						}
-						
-					}
-				}
-				if(mark)
-				{
-				if(map[i][j]==0)
-				{
-					nowx=i;
-					nowy=j;
-					int val;
-					map[i][j]=worb;
-					val=maxmin(3-worb,count+1,alpha,beta);
-					map[i][j]=0;
-					if(val<beta)
-					{
-						beta=val;
-					}
-					if(alpha>=beta)
-					return beta;
-				}
-				}
-			}
-		}
-		
-		return beta;
-	}	
-}
 
+int maxmin(int worb, int count, int alpha, int beta)
+
+{
+
+	int i,j,k,h;
+
+	int f;
+
+	int flag;
+
+	if(count>5)
+
+	return f=givescore(nowx,nowy,1)-givescore(nowx,nowy,2);
+
+	flag=judgewinner(nowx,nowy,worb);
+
+	if(1==flag)
+
+	return f=givescore(nowx,nowy,1)-givescore(nowx,nowy,2);
+
+	posx=nowx;
+
+	posy=nowy;
+
+	if(worb==1)
+
+	{
+
+		for(i=0;i<len;i++)
+
+		{
+
+			for(j=0;j<len;j++)
+
+			{
+
+				int mark=0;
+
+				for(k=-3;k<4;k++)
+
+				{
+
+					for(h=-3;h<4;h++)
+
+					{
+
+						if(i+k>=0&&i+k<len&&j+h>=0&&j+h<len)
+
+						{
+
+							if(map[i+k][j+h]!=0)
+
+							mark++;
+
+						}
+
+						
+
+					}
+
+				}
+
+				if(mark)
+
+				{
+
+				if(map[i][j]==0)
+
+				{
+					if(givescore(i,j,1)>=9000||givescore(i,j,2)>=30000)
+					{
+
+					nowx=i;
+
+					nowy=j;
+
+					int val;
+
+					map[i][j]=worb;
+
+					val=maxmin(3-worb,count+1,alpha,beta);
+
+					map[i][j]=0;
+
+					if(val>alpha)
+
+					{
+
+						alpha=val;
+
+						ansx=i;
+
+						ansy=j;
+
+					}
+
+					if(alpha>=beta)
+
+					return alpha;
+					}
+				}
+
+				}
+
+			}
+
+		}
+
+		
+
+		return alpha;
+
+	}
+
+	
+
+	else 
+
+	{
+
+		for(i=0;i<len;i++)
+
+		{
+
+			for(j=0;j<len;j++)
+
+			{
+
+				int mark=0;
+
+				for(k=-3;k<4;k++)
+
+				{
+
+					for(h=-3;h<4;h++)
+
+					{
+
+						if(i+k>=0&&i+k<len&&j+h>=0&&j+h<len)
+
+						{
+
+							if(map[i+k][j+h]!=0)
+
+							mark++;
+
+						}
+
+						
+
+					}
+
+				}
+
+				if(mark)
+
+				{
+
+				if(map[i][j]==0)
+
+				{
+					if(givescore(i,j,1)>=30000||givescore(i,j,2)>=9000)
+					{
+					nowx=i;
+
+					nowy=j;
+
+					int val;
+
+					map[i][j]=worb;
+
+					val=maxmin(3-worb,count+1,alpha,beta);
+
+					map[i][j]=0;
+
+					if(val<beta)
+
+					{
+
+						beta=val;
+
+					}
+
+					if(alpha>=beta)
+
+					return beta;
+
+					}
+				}
+
+				}
+
+			}
+
+		}
+
+		
+
+		return beta;
+
+	}	
+} 
 
 
 
