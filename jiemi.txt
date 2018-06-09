@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <string.h>
+void decrypt();
+void encrypt();
+char password[1000];
+char text[1000];
+int len;
+int main()
+{
+    int choice;
+    printf("decrypt:0  encrypt:1\n");
+    scanf("%d",&choice);
+    if(choice==0)
+    {
+        decrypt();
+    }
+    else {
+        encrypt();
+    }
+    return 0;
+}
+void decrypt()
+{
+    int n;
+    scanf("%d",&n);
+    scanf("%s",&password);
+    len=strlen(password);
+    for(int i=0;i<len;i++)
+    {
+        text[i]=password[i]+n;
+    }
+    printf("%s",text);
+}
+void encrypt()
+{
+    int n;
+    scanf("%d",&n);
+    scanf("%s",&text);
+    len=strlen(text);
+    for(int i=0;i<len;i++)
+    {
+        password[i]=text[i]-n;
+}

@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+void Goldbath();
+int main ()
+{
+    Goldbath();
+    system ("pause");
+    return 0;
+}
+
+void Goldbath(){
+             int prime1=0,prime2=0;
+             for(int i=2;i<=100;i=i+2)
+                for (int j=2;j<i;j++)
+                {
+                    for (int k=2;k<=sqrt(j);k++)
+                    {
+                        prime1=0;
+                        if(j%k==0)
+                        {
+                            prime1=1;
+                            break ;
+                        }
+                    }
+                    if(prime1==0)
+                    {
+                        int pri =i-j;
+                        for (int k=2;k<=sqrt(pri);k++)
+                        {
+                            prime2==0;
+                            if(pri%k==0)
+                            {
+                                prime2==1;
+                                break ;
+                            }
+                        }
+                        if(prime2==0)
+                        {
+                            printf("%d+%d=%d\n",j,pri,i);
+                        }
+                    }
+                }
+
+             }
