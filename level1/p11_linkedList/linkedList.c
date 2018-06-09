@@ -1,4 +1,3 @@
-/*This program can only run on Windows.*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,9 +5,17 @@
 #include <conio.h>
 #include <Windows.h>
 #else
+#include <unistd.h>
 #include <stdio_ext.h>
+#include <pthread.h>
 #endif
 #define LEN sizeof(struct node)
+
+void clrbuf(void);
+void create(void);
+void display(void);
+void reverse(void);
+int search(void);
 
 struct node
 {
@@ -20,6 +27,7 @@ node *now, *next = NULL;
 int a = 0, b = -1, n=0 , ch , i;
 int numin[1000];
 
+#ifdef _WIN32
 DWORD WINAPI clrbuf(LPVOID lpParameter)
 {
     while((ch=getchar())!=EOF&&ch!='\n');
@@ -33,11 +41,19 @@ DWORD WINAPI scanf(LPVOID lpParameter)
     return 0;
     #else
     for (i = 0;; i++)
-    {
         scanf("%d",&numin[i]);
-    }
     #endif
 }
+
+#else 
+void *getnum(void *arg)
+{
+    pthread_testcancel();
+    for (i = 0;; i++)
+        scanf("%d",&numin[i]);
+    pthread_testcancel();
+}
+#endif
 
 void clrbuf(void)
 {
@@ -58,8 +74,8 @@ void create(void)
     head = p = (struct node*)malloc(LEN);
     printf("Creating linked list...\n");
     printf("Please input data:\n");
-    char str1[10], str2[10];
     #ifdef DEGBUG1
+    char str1[10], str2[10];
     scanf("%d", &p->data);
     getchar();
     while (1)
@@ -96,14 +112,30 @@ void create(void)
     #else
     clrbuf();
     a=getchar();
+    ungetc(a,stdin);
+    #ifdef _WIN32
     HANDLE Thread2 = CreateThread(NULL, 0, scanf, NULL, 0, NULL);
     Sleep(10);
     TerminateThread(Thread2, 0);
     CloseHandle(Thread2);
-    _itoa(a - 48, str1, 10);
-    _itoa(numin[0], str2, 10);
-    strcat(str1, str2);
-    p->data = atoi(str1);
+    #else
+    pthread_t tid;
+    int *temp=NULL;
+    if(pthread_create(&tid,NULL,getnum,temp)!=0)
+    {
+        perror("Can't create thread!");
+        getchar();
+        exit(1);
+    }
+    sleep(0.1);
+    if(pthread_cancel(tid)!=0)
+    {
+        perror("Can't kill thread!");
+        getchar();
+        exit(1);
+    }
+    #endif
+    p->data = numin[0];
     for (int j = 1; j < i; j++)
     {
         pl = p;
@@ -177,9 +209,9 @@ int search(void)
 
 int main(void)
 {
-#ifdef _WIN32
+    #ifdef _WIN32
     system("color f9");
-#endif
+    #endif
     create();
     display();
     reverse();
@@ -187,6 +219,8 @@ int main(void)
     printf("Searching...\n");
     printf("%d\n", search());
     printf("%d\n", search());
+    #ifdef _WIN32
     system("pause");
+    #endif
     return 0;
 }
