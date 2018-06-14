@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+#include<time.h>
+int main ()
+{
+    double a,b;
+    a = clock();
+    for(int j=2;j<=1000;j++)
+        for(int i=2;i<=sqrt(j);i++)
+    {
+        if(j%i==0)
+        {
+            break;
+        }
+        if(i==(int)sqrt(j))
+        {
+            printf("%d\n",j);
+        }
+    }
+    b= clock();
+    printf("%f seconds\n",b-a);
+    system ("pause");
+    return 0;
+}

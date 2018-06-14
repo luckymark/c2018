@@ -1,0 +1,26 @@
+#include <stdio.h>
+int i=1;
+void move (int n,char from,char to)
+
+    {
+    printf("第%d步:将%d号盘子%c------>%c\n",i++,n,from,to);
+    }
+     void hanoi(int n,char from,char depend,char to)
+     {
+         if(n==1)
+            move(1,from,to);
+         else
+         {
+             hanoi(n-1,from,to,depend);
+             move(n,from,to);
+             hanoi(n-1,depend,from,to);
+         }
+     }
+void main()
+{
+    printf("请输入盘子数：\n");
+    int n;
+    scanf("%d",&n);
+    char x='A',y='B',z='C';
+    hanoi(n,x,y,z);
+}
