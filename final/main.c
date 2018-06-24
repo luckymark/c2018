@@ -14,7 +14,7 @@ int value1[len][len]=
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     {0,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
     {0,1,2,2,2,2,2,2,2,2,2,2,2,1,0},
-   	{0,1,2,3,3,3,3,3,3,3,3,3,2,1,0},
+    {0,1,2,3,3,3,3,3,3,3,3,3,2,1,0},
     {0,1,2,3,4,4,4,4,4,4,4,3,2,1,0},
     {0,1,2,3,4,5,5,5,5,5,4,3,2,1,0},
     {0,1,2,3,4,5,6,6,6,5,4,3,2,1,0},
@@ -32,7 +32,7 @@ int value2[len][len]=
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     {0,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
     {0,1,2,2,2,2,2,2,2,2,2,2,2,1,0},
-   	{0,1,2,3,3,3,3,3,3,3,3,3,2,1,0},
+    {0,1,2,3,3,3,3,3,3,3,3,3,2,1,0},
     {0,1,2,3,4,4,4,4,4,4,4,3,2,1,0},
     {0,1,2,3,4,5,5,5,5,5,4,3,2,1,0},
     {0,1,2,3,4,5,6,6,6,5,4,3,2,1,0},
@@ -55,7 +55,7 @@ int maxmin(int now_chess, int count_0, int alpha, int beta);
 
 int main(int argc, char *argv[]) 
 {
-	system("title  °æKC's gobang game°ø");
+	system("title  „ÄêKC's gobang game„Äë");
 	while(1)
 	{
 		char c;
@@ -138,27 +138,27 @@ void display_map()
 		for(j=0;j<len;j++)
 		{
 			if(map[i][j]==1)
-			printf("°Ò");
+			printf("‚óè");
 			else if(map[i][j]==2)
-			printf("°");
+			printf("‚óã");
 			else if(i==0&&j==0)
-			printf("©≥ ");
+			printf("‚îè ");
 			else if(i==0&&j!=0&&j!=len-1)
-			printf("©” ");
+			printf("‚îØ ");
 			else if(i==0&&j==len-1)
-			printf("©∑ ");
+			printf("‚îì ");
 			else if(j==0&&i!=len-1)
-			printf("©ƒ ");
+			printf("‚î† ");
 			else if(j==len-1&&i!=len-1)
-			printf("©Ã ");
+			printf("‚î® ");
 			else if(i==len-1&&j==0)
-			printf("©ª ");
+			printf("‚îó ");
 			else if(i==len-1&&j!=0&&j!=len-1)
-			printf("©€ ");
+			printf("‚î∑ ");
 			else if(i==len-1&&j==len-1)
-			printf("©ø ");	
+			printf("‚îõ ");	
 			else
-			printf("©‡ ");
+			printf("‚îº ");
 		}
 		printf("\n");
 	}
