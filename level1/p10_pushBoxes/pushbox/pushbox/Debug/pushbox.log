@@ -1,0 +1,6 @@
+﻿  源.c
+c:\users\hp\source\repos\c2018\level1\p10_pushboxes\pushbox\pushbox\源.c(183): warning C4474: fscanf_s: 格式字符串中传递的参数太多
+  c:\users\hp\source\repos\c2018\level1\p10_pushboxes\pushbox\pushbox\源.c(183): note: 占位符和其参数预计 1 可变参数，但提供的却是 2 参数
+c:\users\hp\source\repos\c2018\level1\p10_pushboxes\pushbox\pushbox\源.c(192): warning C4474: fscanf_s: 格式字符串中传递的参数太多
+  c:\users\hp\source\repos\c2018\level1\p10_pushboxes\pushbox\pushbox\源.c(192): note: 占位符和其参数预计 1 可变参数，但提供的却是 2 参数
+  pushbox.vcxproj -> C:\Users\HP\source\repos\c2018\level1\p10_pushBoxes\pushbox\Debug\pushbox.exe

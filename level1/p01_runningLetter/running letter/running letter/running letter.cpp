@@ -9,7 +9,7 @@ int main(void) {
 		int x = 1;
 		while (x < i) {
 			printf(" ");
-			x++;
+			x++ ;
 		}
 		printf("0");
 		delay();
